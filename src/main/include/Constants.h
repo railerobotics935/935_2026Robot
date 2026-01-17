@@ -4,6 +4,26 @@
 
 #pragma once
 
+#include <numbers>
+
+#include <frc/geometry/Translation2d.h>
+#include <frc/kinematics/SwerveDriveKinematics.h>
+#include <frc/trajectory/TrapezoidProfile.h>
+#include <units/acceleration.h>
+#include <units/angle.h>
+#include <units/angular_acceleration.h>
+#include <units/angular_velocity.h>
+#include <units/length.h>
+#include <units/time.h>
+#include <units/velocity.h>
+#include <units/current.h>
+#include <frc/geometry/Pose3d.h>
+#include <frc/apriltag/AprilTagFields.h>
+#include <rev/SparkMax.h>
+#include <iostream>
+#include <rev/config/SparkMaxConfig.h>
+
+
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other
@@ -17,5 +37,149 @@
 namespace OperatorConstants {
 
 inline constexpr int kDriverControllerPort = 0;
+inline constexpr int kOperatorControllerPort = 1;
 
 }  // namespace OperatorConstants
+
+namespace RobotConstants {
+
+constexpr double kVoltageCompensationValue = 11.0;
+
+const units::meter_t kWheelBase =
+    0.6223_m;  // Distance between centers of front and back wheels on robot
+const units::meter_t kWheelWidth =
+    0.6223_m; // Distance between centers of left and right wheels on robot
+
+}
+
+namespace DriveConstants {
+// Driving Parameters - Note that these are not the maximum capable speeds of
+// the robot, rather the allowed maximum speeds
+constexpr units::meters_per_second_t kMaxSpeed = 4.3_mps;
+constexpr units::radians_per_second_t kMaxAngularSpeed{2.0 * std::numbers::pi};
+
+constexpr double kDirectionSlewRate = 6.0;   // radians per second
+constexpr double kMagnitudeSlewRate = 7.0;   // percent per second (1 = 100%)
+constexpr double kRotationalSlewRate = 8.0;  // percent per second (1 = 100%)
+
+// CAN Sparkmax id numbers
+constexpr int kFrontLeftDriveMotorPort = 28;
+constexpr int kFrontRightDriveMotorPort = 20;
+constexpr int kBackLeftDriveMotorPort = 10;
+constexpr int kBackRightDriveMotorPort = 18;
+
+constexpr int kFrontLeftTurningMotorPort = 29;
+constexpr int kFrontRightTurningMotorPort = 21;
+constexpr int kBackLeftTurningMotorPort = 11;
+constexpr int kBackRightTurningMotorPort = 19;
+
+// PID Controller for the auto rotation of the robot
+constexpr double kRotationP = 2.5;
+constexpr double kRotationI = 0.002;
+constexpr double kRotationD = 0.2;
+
+// Anolog input ports on roborio
+constexpr int kFrontLeftTurningEncoderPort = kFrontLeftTurningMotorPort;
+constexpr int kFrontRightTurningEncoderPort = kFrontRightTurningMotorPort;
+constexpr int kBackLeftTurningEncoderPort = kBackLeftTurningMotorPort;
+constexpr int kBackRightTurningEncoderPort = kBackRightTurningMotorPort;
+
+// Offsets in radians for the encoders. the first number to to make zero forward, after that we
+// subtract an additional pi to make the full range -pi to pi instead of 0 to 2pi
+//constexpr double kFrontLeftDriveEncoderOffset = (1.9249 - (std::numbers::pi / 2) + (std::numbers::pi / 3)) + 0.033;
+//constexpr double kFrontRightDriveEncoderOffset = (3.2676) - (std::numbers::pi / 3) - 0.062; 
+//constexpr double kBackLeftDriveEncoderOffset =  (2.0477) - (2.0 * std::numbers::pi / 3) + std::numbers::pi + 0.050; //(0.6988 + (std::numbers::pi / 2)); 
+//constexpr double kBackRightDriveEncoderOffset = (3.8439 + (std::numbers::pi / 2)) - 0.019; //(2.0472 + (std::numbers::pi)); 
+constexpr double kFrontLeftTurnEncoderOffset = (std::numbers::pi / 2); //-(std::numbers::pi / 2); //2.789 - (std::numbers::pi / 2) - std::numbers::pi;
+constexpr double kFrontRightTurnEncoderOffset = (std::numbers::pi); //4.996 - std::numbers::pi; 
+constexpr double kBackLeftTurnEncoderOffset = 0; //5.756; 
+constexpr double kBackRightTurnEncoderOffset = -((std::numbers::pi) / 2); //4.407 + (std::numbers::pi / 2) - std::numbers::pi;
+
+constexpr auto kDriveBaseRadius = 0.46_m;
+
+}  // namespace DriveConstants
+
+namespace ModuleConstants {
+// Through-hole Encoder on Spark MAX frequency-pwm input
+// Invert the turning encoder, since the output shaft rotates in the opposite
+// direction of the steering motor in the MAXSwerve Module.
+constexpr bool kTurningEncoderInverted = true;
+
+// Calculations required for driving motor conversion factors and feed forward
+constexpr double kDrivingMotorFreeSpeedRps =
+    5676.0 / 60;  // NEO free speed is 5676 RPM
+constexpr units::meter_t kWheelDiameter = 0.0953_m;
+constexpr units::meter_t kWheelCircumference =
+    kWheelDiameter * std::numbers::pi;
+
+// 6.75:1 Gear Ratio for Driving Motors
+constexpr double kDrivingMotorReduction = 6.75;
+constexpr double kDriveWheelFreeSpeedRps =
+    (kDrivingMotorFreeSpeedRps * kWheelCircumference.value()) /
+    kDrivingMotorReduction;
+
+constexpr double kDrivingEncoderPositionFactor =
+    (kWheelDiameter.value() * std::numbers::pi) /
+    kDrivingMotorReduction;  // meters
+constexpr double kDrivingEncoderVelocityFactor =
+    ((kWheelDiameter.value() * std::numbers::pi) / kDrivingMotorReduction) /
+    60.0;  // meters per second
+
+constexpr double kTurningEncoderPositionFactor =
+    (2 * std::numbers::pi);  // radians
+constexpr double kTurningEncoderVelocityFactor =
+    (2 * std::numbers::pi) / 60.0;  // radians per second
+
+constexpr units::radian_t kTurningEncoderPositionPIDMinInput = 0_rad;
+constexpr units::radian_t kTurningEncoderPositionPIDMaxInput =
+    units::radian_t{kTurningEncoderPositionFactor};
+
+constexpr double kDrivingP = 0.0;
+constexpr double kDrivingI = 0.0;
+constexpr double kDrivingD = 0.0;
+constexpr double kDrivingFF = (1 / kDriveWheelFreeSpeedRps);
+constexpr double kDrivingMinOutput = -1;
+constexpr double kDrivingMaxOutput = 1;
+
+constexpr double kTurningP = 1.5;
+constexpr double kTurningI = 0.0;
+constexpr double kTurningD = 0.0; //was originally 0.15
+constexpr double kTurningFF = 0;
+constexpr double kTurningMinOutput = -1;
+constexpr double kTurningMaxOutput = 1;
+
+constexpr rev::spark::SparkMaxConfig::IdleMode kDrivingMotorIdleMode =  rev::spark::SparkMaxConfig::IdleMode::kBrake;
+constexpr rev::spark::SparkMaxConfig::IdleMode kTurningMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kDrivingMotorCurrentLimit = 40_A;
+constexpr units::ampere_t kTurningMotorCurrentLimit = 40_A;
+
+constexpr auto kModuleMaxAngularVelocity =  std::numbers::pi * 9_rad_per_s;  // radians per second ?????????
+constexpr auto kModuleMaxAngularAcceleration = std::numbers::pi * 20_rad_per_s / 1_s;  // radians per second^2
+constexpr auto kModuleMaxLinearVelocity = 4.65_mps;
+}  // namespace ModuleConstants
+
+namespace AutoConstants {
+
+// Only Constants here are the PID constants. Look in path planner for max veleocty/acceleration constants
+// PID Constants for the tranlation (X and Y movement) of the robot during auto
+constexpr double kPTanslationController = 4.0; // 6.0
+constexpr double kITanslationController = 0.0; // 1.7
+constexpr double kDTanslationController = 0.0; // 0.0
+
+// PID Constants for the rotation, or Yaw of the robot
+constexpr double kPRotationController = 5.0; // 5.0
+constexpr double kIRotationController = 0.0; // 0.0
+constexpr double kDRotationController = 0.0; // 0.0
+
+}  // namespace AutoConstants
+
+namespace ControllerConstants {
+
+// Axis Indexes
+constexpr int kDriveLeftYIndex = 1; // An input UP creates a NEGATIVE output
+constexpr int kDriveLeftXIndex = 0; // An input RIGHT creates a NEGATIVE output
+constexpr int kDriveRightYIndex = 5; // An input UP creates a NEGATIVE output
+constexpr int kDriveRightXIndex = 4; // An input RIGHT creates a NEGATIVE output
+
+}  // namespace Controller Constants

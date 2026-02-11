@@ -1,0 +1,23 @@
+
+#include "Constants.h"
+#include "commands/stager/StagerStop.h"
+
+StagerStop::StagerStop(StagerSubsystem *stager) : m_stager{stager} {
+
+  AddRequirements(m_stager);
+}
+
+void StagerStop::Initialize() {
+#ifdef PRINTDEBUG
+  std::cout << "StagerStop Initialized\r\n";
+#endif
+  m_stager->SetStagerMotorPower(0.0);
+}
+
+
+void StagerStop::End(bool interrupted) {
+#ifdef PRINTDEBUG
+  std::cout << "StagerStop Ended\r\n";
+#endif
+  m_stager->SetStagerMotorPower(0.0);
+}

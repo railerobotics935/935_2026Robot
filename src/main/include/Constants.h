@@ -33,6 +33,7 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
+#define BURNSHOOTERSPARKMAX
 
 namespace OperatorConstants {
 
@@ -181,5 +182,38 @@ constexpr int kDriveLeftYIndex = 1; // An input UP creates a NEGATIVE output
 constexpr int kDriveLeftXIndex = 0; // An input RIGHT creates a NEGATIVE output
 constexpr int kDriveRightYIndex = 5; // An input UP creates a NEGATIVE output
 constexpr int kDriveRightXIndex = 4; // An input RIGHT creates a NEGATIVE output
+constexpr int kOperatorLeftTrigger = 2; // Pressing creates a POSITIVE output
+constexpr int kOperatorRightTrigger = 3; // Pressing creates a POSITIVE output
+constexpr int kOperatorLeftXIndex = 0; // An input RIGHT creates a NEGATIVE output
+
+
+
+constexpr int kShootButton = 5; //rb
+constexpr int kStagerIntakeButton = 6; //lb
 
 }  // namespace Controller Constants
+
+namespace ShooterConstants {
+
+// Intake Motors
+constexpr int kShooterRightMotorID = 23;
+constexpr int kShooterLeftMotorID = 22;
+
+constexpr rev::spark::SparkLowLevel::MotorType kShooterMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kShooterMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kShooterMotorCurrentLimit = 40_A;
+
+}  // namespace ShooterConstants
+
+namespace StagerConstants {
+    
+constexpr int kStagerShooterMotorID = 20;
+
+    
+constexpr rev::spark::SparkLowLevel::MotorType kStagerMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kStagerMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kStagerMotorCurrentLimit = 40_A;
+
+}

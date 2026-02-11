@@ -3,10 +3,15 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-
 #include <frc2/command/CommandScheduler.h>
+#include <networktables/NetworkTableInstance.h>
+#include <networktables/NetworkTable.h>
+#include <networktables/DoubleTopic.h>
 
-Robot::Robot() {}
+Robot::Robot() {
+  auto table = nt::NetworkTableInstance::GetDefault().GetTable("photonvision/Camera1");
+  nte_fps = table->GetEntry("fps");
+}
 
 /**
  * This function is called every 20 ms, no matter the mode. Use
@@ -51,8 +56,13 @@ void Robot::TeleopInit() {
   if (m_autonomousCommand) {
     m_autonomousCommand->Cancel();
   }
-}
 
+  auto nt_inst = nt::NetworkTableInstance::GetDefault();
+
+  auto nt_table = nt_inst.GetTable("photonvision");
+
+  nte_fps = nt_table->GetEntry("Camera1/fps");
+}
 /**
  * This function is called periodically during operator control.
  */

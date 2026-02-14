@@ -6,6 +6,8 @@
 #include "subsystems/StagerSubsystem.h"
 #include "Constants.h"
 
+#ifndef TESTBOARD
+
 StagerSubsystem::StagerSubsystem() 
 
 : m_stagerSparkMax{StagerConstants::kStagerShooterMotorID, StagerConstants::kStagerMotorType}
@@ -35,11 +37,11 @@ StagerSubsystem::StagerSubsystem()
   #endif
 }
 
-/*
-void ShooterSubsystem::Periodic() {
-  nte_coralInShooter.SetBoolean(CoralInShooter());
+
+void StagerSubsystem::Periodic() {
+
 }
-*/
+
 
 void StagerSubsystem::SetStagerMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 
@@ -50,3 +52,5 @@ void StagerSubsystem::SetStagerMotorPower(double power) {
 double StagerSubsystem::GetDirection() {
   return m_stagerSparkMax.Get();
 }
+
+#endif //Testboard

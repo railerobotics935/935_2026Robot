@@ -12,10 +12,14 @@
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ShooterSubsystem.h"
 #include "subsystems/StagerSubsystem.h"
+#include "subsystems/TurretYawSubsystem.h"
+#include "subsystems/TurretPitchSubsystem.h"
 
 #include "commands/drive/DriveWithController.h"
 #include "commands/shooter/SimpleShoot.h"
 #include "commands/stager/SimpleStagerIntake.h"
+#include "commands/turretyaw/SimpleRotateTurretYaw.h"
+#include "commands/turretpitch/SimpleMoveTurretPitch.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -41,11 +45,20 @@ class RobotContainer {
   // The robot's subsystems are defined here
   ExampleSubsystem m_subsystem;
   //DriveSubsystem m_driveSubsystem;
+  #ifndef TESTBOARD
   ShooterSubsystem m_shooterSubsystem;
   StagerSubsystem m_stagerSubsystem;
+  TurretYawSubsystem m_turretYawSubsystem;
+  TurretPitchSubsystem m_turretPitchSubsystem;
+  #endif //testboard
 
   void ConfigureBindings();
 
   // Commands
   //DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
+  #ifndef TESTBOARD
+  SimpleRotateTurretYaw m_simpleRotateTurretYaw{&m_turretYawSubsystem, &m_operatorController};
+  SimpleMoveTurretPitch m_simpleMoveTurretPitch{&m_turretPitchSubsystem, &m_operatorController};  
+  #endif //testboard
+
 };

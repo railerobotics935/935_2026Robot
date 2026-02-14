@@ -13,6 +13,8 @@
 #include <iostream>
 #include <Constants.h>
 
+#ifndef TESTBOARD
+
 class ShooterSubsystem : public frc2::SubsystemBase {
  public:
   /**
@@ -22,7 +24,7 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   // Sets the motor's power (between -1.0 and 1.0).
   
-  //void Periodic() override;
+  void Periodic() override;
 
   
   void SetShooterMotorPower(double power);
@@ -55,3 +57,5 @@ class ShooterSubsystem : public frc2::SubsystemBase {
   //Network Table Entry
   //nt::NetworkTableEntry nte_coralInShooter;
 };
+
+#endif //TESBOARD

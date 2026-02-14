@@ -13,6 +13,8 @@
 #include <iostream>
 #include <Constants.h>
 
+#ifndef TESTBOARD
+
 class TurretYawSubsystem : public frc2::SubsystemBase {
  public:
   /**
@@ -22,7 +24,7 @@ class TurretYawSubsystem : public frc2::SubsystemBase {
 
   // Sets the motor's power (between -1.0 and 1.0).
   
-  //void Periodic() override;
+  void Periodic() override;
 
   
   void SetTurretYawMotorPower(double power);
@@ -47,10 +49,15 @@ class TurretYawSubsystem : public frc2::SubsystemBase {
   // Motor Controllers
   rev::spark::SparkMax m_turretYawSparkMax;
 
+  // Encoders
+  rev::spark::SparkRelativeEncoder m_turretYawEncoder = m_turretYawSparkMax.GetEncoder();
+
   // Light Sensor is a digital input in the DIO port (digital input output)
   //frc::DigitalInput m_lightSensor{ShooterConstants::kLightSensorID};
 
 
   //Network Table Entry
   //nt::NetworkTableEntry nte_coralInShooter;
+  nt::NetworkTableEntry nte_turretYawAngle;
 };
+#endif //Tesboard

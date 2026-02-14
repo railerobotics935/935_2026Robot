@@ -1,6 +1,8 @@
 
 #pragma once
 
+#ifndef TESTBOARD
+
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc/XboxController.h>
@@ -23,3 +25,4 @@ public:
 private:
   ShooterSubsystem* m_shooter;
 };
+#endif //TESTBOARD

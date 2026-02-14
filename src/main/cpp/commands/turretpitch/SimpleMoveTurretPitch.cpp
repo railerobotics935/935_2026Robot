@@ -1,30 +1,46 @@
 
 #include "Constants.h"
-#include "commands/turretyaw/SimpleRotateTurretYaw.h"
+#include "commands/turretpitch/SimpleMoveTurretPitch.h"
 
-SimpleRotateTurretYaw::SimpleRotateTurretYaw(TurretYawSubsystem *turretYaw, frc::XboxController *operatorController) : m_turretYaw{turretYaw}, m_operatorController{operatorController} {
+#ifndef TESTBOARD
 
-  AddRequirements(m_turretYaw);
+SimpleMoveTurretPitch::SimpleMoveTurretPitch(TurretPitchSubsystem *turretPitch, frc::XboxController *operatorController) : m_turretPitch{turretPitch}, m_operatorController{operatorController} {
+
+  AddRequirements(m_turretPitch);
 }
 
-void SimpleRotateTurretYaw::Initialize() {
+void SimpleMoveTurretPitch::Initialize() {
 #ifdef PRINTDEBUG
-  std::cout << "SimpleRotateTurretYaw Initialized\r\n";
+  std::cout << "SimpleMoveTurretPitch Initialized\r\n";
 #endif
 }
 
-void SimpleRotateTurretYaw::Execute() {
+void SimpleMoveTurretPitch::Execute() {
 
-  double rotPower = -m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftXIndex);
+  double rotPower;
 
-  m_turretYaw->SetTurretYawMotorPower(rotPower);
+  if (m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftTrigger) != 0.0 ) {
+    rotPower = -m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftTrigger);
+  }
+  
+  else if (m_operatorController->GetRawAxis(ControllerConstants::kOperatorRightTrigger) != 0.0 ) {
+    rotPower = m_operatorController->GetRawAxis(ControllerConstants::kOperatorRightTrigger);
+  }
+
+  else {
+    rotPower = 0.0;
+  }
+
+  m_turretPitch->SetTurretPitchMotorPower(rotPower);
   
 }
 
 
-void SimpleRotateTurretYaw::End(bool interrupted) {
+void SimpleMoveTurretPitch::End(bool interrupted) {
 #ifdef PRINTDEBUG
-  std::cout << "SimpleRotateTurretYaw Ended\r\n";
+  std::cout << "SimpleMoveTurretPitch Ended\r\n";
 #endif
-  m_turretYaw->SetTurretYawMotorPower(0.0);
+  m_turretPitch->SetTurretPitchMotorPower(0.0);
 }
+
+#endif //TESTBOARD

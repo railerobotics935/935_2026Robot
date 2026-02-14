@@ -3,50 +3,56 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include <frc/shuffleboard/Shuffleboard.h>
-#include "subsystems/TurretYawSubsystem.h"
+#include "subsystems/TurretPitchSubsystem.h"
 #include "Constants.h"
 
-TurretYawSubsystem::TurretYawSubsystem() 
+#ifndef TESTBOARD
 
-: m_turretYawSparkMax{TurretYawConstants::kTurretYawMotorID, TurretYawConstants::kTurretYawMotorType}
+TurretPitchSubsystem::TurretPitchSubsystem() 
+
+: m_turretPitchSparkMax{TurretPitchConstants::kTurretPitchMotorID, TurretPitchConstants::kTurretPitchMotorType}
  {
 
 
    #ifdef BURNSHOOTERSPARKMAX
 
-  rev::spark::SparkMaxConfig turretYawSparkMaxConfig{};
+  rev::spark::SparkMaxConfig turretPitchSparkMaxConfig{};
 
-  turretYawSparkMaxConfig
+  turretPitchSparkMaxConfig
   .VoltageCompensation(RobotConstants::kVoltageCompensationValue)
-  .SetIdleMode(TurretYawConstants::kTurretYawMotorIdleMode)
-  .SmartCurrentLimit(TurretYawConstants::kTurretYawMotorCurrentLimit.value());
+  .SetIdleMode(TurretPitchConstants::kTurretPitchMotorIdleMode)
+  .SmartCurrentLimit(TurretPitchConstants::kTurretPitchMotorCurrentLimit.value());
 
-  m_turretYawSparkMax.Configure(turretYawSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+  m_turretPitchSparkMax.Configure(turretPitchSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 
   
-//auto nt_inst = nt::NetworkTableInstance::GetDefault();
+auto nt_inst = nt::NetworkTableInstance::GetDefault();
+auto nt_table = nt_inst.GetTable("Turret");
+
+nte_turretPitchAngle = nt_table->GetEntry("Turret/Turret Pitch");
 //auto nt_table = nt_inst.GetTable("Shooter");
 //
 //nte_coralInShooter = nt_table->GetEntry("Shooter/Fuel in Shooter");
 
-  std::cout << "Flash Burned on TurretYaw subsystem\r\n";
+  std::cout << "Flash Burned on TurretPitch subsystem\r\n";
   #else
-  std::cout << "Flash was not burned on TurretYaw subsystem\r\n";
+  std::cout << "Flash was not burned on TurretPitch subsystem\r\n";
   #endif
 }
 
-/*
-void ShooterSubsystem::Periodic() {
-  nte_coralInShooter.SetBoolean(CoralInShooter());
-}
-*/
 
-void TurretYawSubsystem::SetTurretYawMotorPower(double power) {
+void TurretPitchSubsystem::Periodic() {
+  nte_turretPitchAngle.SetDouble(m_pitchEncoder.GetPosition()); // Up is NEGATIVE
+}
+
+
+void TurretPitchSubsystem::SetTurretPitchMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 
-  m_turretYawSparkMax.Set(power);    
+  m_turretPitchSparkMax.Set(power);    
 
 }
 
-double TurretYawSubsystem::GetDirection() {
-  return m_turretYawSparkMax.Get();
+double TurretPitchSubsystem::GetDirection() {
+  return m_turretPitchSparkMax.Get();
 }
+#endif //Testboard

@@ -2,6 +2,8 @@
 #include "Constants.h"
 #include "commands/stager/StagerStop.h"
 
+#ifndef TESTBOARD
+
 StagerStop::StagerStop(StagerSubsystem *stager) : m_stager{stager} {
 
   AddRequirements(m_stager);
@@ -21,3 +23,5 @@ void StagerStop::End(bool interrupted) {
 #endif
   m_stager->SetStagerMotorPower(0.0);
 }
+
+#endif //Testboard

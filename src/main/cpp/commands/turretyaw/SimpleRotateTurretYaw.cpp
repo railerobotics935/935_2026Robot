@@ -2,6 +2,8 @@
 #include "Constants.h"
 #include "commands/turretyaw/SimpleRotateTurretYaw.h"
 
+#ifndef TESTBOARD
+
 SimpleRotateTurretYaw::SimpleRotateTurretYaw(TurretYawSubsystem *turretYaw, frc::XboxController *operatorController) : m_turretYaw{turretYaw}, m_operatorController{operatorController} {
 
   AddRequirements(m_turretYaw);
@@ -28,3 +30,4 @@ void SimpleRotateTurretYaw::End(bool interrupted) {
 #endif
   m_turretYaw->SetTurretYawMotorPower(0.0);
 }
+#endif //TESTBOARD

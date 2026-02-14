@@ -13,6 +13,8 @@
 #include <iostream>
 #include <Constants.h>
 
+#ifndef TESTBOARD
+
 class TurretPitchSubsystem : public frc2::SubsystemBase {
  public:
   /**
@@ -22,7 +24,7 @@ class TurretPitchSubsystem : public frc2::SubsystemBase {
 
   // Sets the motor's power (between -1.0 and 1.0).
   
-  //void Periodic() override;
+  void Periodic() override;
 
   
   void SetTurretPitchMotorPower(double power);
@@ -47,10 +49,15 @@ class TurretPitchSubsystem : public frc2::SubsystemBase {
   // Motor Controllers
   rev::spark::SparkMax m_turretPitchSparkMax;
 
+  // Encoders
+  rev::spark::SparkRelativeEncoder m_pitchEncoder = m_turretPitchSparkMax.GetEncoder();
+
   // Light Sensor is a digital input in the DIO port (digital input output)
   //frc::DigitalInput m_lightSensor{ShooterConstants::kLightSensorID};
 
 
   //Network Table Entry
   //nt::NetworkTableEntry nte_coralInShooter;
+  nt::NetworkTableEntry nte_turretPitchAngle;
 };
+#endif //TESTBOARD

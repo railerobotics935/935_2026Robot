@@ -6,6 +6,9 @@
 #include <frc/XboxController.h>
 
 #include "subsystems/StagerSubsystem.h"
+#include "Constants.h"
+
+#ifndef TESTBOARD
 
 class SimpleStagerIntake
   : public frc2::CommandHelper<frc2::Command, SimpleStagerIntake> {
@@ -23,3 +26,5 @@ public:
 private:
   StagerSubsystem* m_stager;
 };
+
+#endif //Tesboard

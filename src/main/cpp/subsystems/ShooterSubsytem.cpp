@@ -6,6 +6,8 @@
 #include "subsystems/ShooterSubsystem.h"
 #include "Constants.h"
 
+#ifndef TESTBOARD
+
 ShooterSubsystem::ShooterSubsystem() 
 
 : m_rightShooterSparkMax{ShooterConstants::kShooterRightMotorID, ShooterConstants::kShooterMotorType},
@@ -46,11 +48,11 @@ ShooterSubsystem::ShooterSubsystem()
   #endif
 }
 
-/*
+
 void ShooterSubsystem::Periodic() {
-  nte_coralInShooter.SetBoolean(CoralInShooter());
+  
 }
-*/
+
 
 void ShooterSubsystem::SetShooterMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 
@@ -61,3 +63,4 @@ void ShooterSubsystem::SetShooterMotorPower(double power) {
 double ShooterSubsystem::GetDirection() {
   return m_rightShooterSparkMax.Get();
 }
+#endif //testboard

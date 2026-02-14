@@ -7,6 +7,8 @@
 
 #include "subsystems/StagerSubsystem.h"
 
+#ifndef TESTBOARD
+
 class StagerStop
   : public frc2::CommandHelper<frc2::Command, StagerStop> {
 public:
@@ -23,3 +25,5 @@ public:
 private:
   StagerSubsystem* m_stager;
 };
+
+#endif //Testboard 

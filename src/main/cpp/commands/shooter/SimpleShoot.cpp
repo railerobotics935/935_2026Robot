@@ -1,5 +1,8 @@
 
 #include "Constants.h"
+
+#ifndef TESTBOARD
+
 #include "commands/shooter/SimpleShoot.h"
 
 SimpleShoot::SimpleShoot(ShooterSubsystem *shooter) : m_shooter{shooter} {
@@ -9,7 +12,7 @@ SimpleShoot::SimpleShoot(ShooterSubsystem *shooter) : m_shooter{shooter} {
 
 void SimpleShoot::Initialize() {
 #ifdef PRINTDEBUG
-  std::cout << "SimpleIntake Initialized\r\n";
+  std::cout << "SimpleShoot Initialized\r\n";
 #endif
   m_shooter->SetShooterMotorPower(-0.5);
 }
@@ -17,7 +20,9 @@ void SimpleShoot::Initialize() {
 
 void SimpleShoot::End(bool interrupted) {
 #ifdef PRINTDEBUG
-  std::cout << "SimpleIntake Ended\r\n";
+  std::cout << "SimpleShoot Ended\r\n";
 #endif
   m_shooter->SetShooterMotorPower(0.0);
 }
+
+#endif // TESTBOARD

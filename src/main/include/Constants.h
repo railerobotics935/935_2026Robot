@@ -24,6 +24,7 @@
 #include <rev/config/SparkMaxConfig.h>
 
 
+//#define TESTBOARD //disable when on actual robot, to seperate when we are working on the oculus vs the actual robot 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other
@@ -216,4 +217,26 @@ constexpr rev::spark::SparkMaxConfig::IdleMode kStagerMotorIdleMode = rev::spark
 
 constexpr units::ampere_t kStagerMotorCurrentLimit = 40_A;
 
-}
+} // namespace StagerConstants
+
+namespace TurretYawConstants {
+
+constexpr int kTurretYawMotorID = 21;
+
+constexpr rev::spark::SparkLowLevel::MotorType kTurretYawMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kTurretYawMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kTurretYawMotorCurrentLimit = 40_A;
+
+} // namespace TurretYawConstants
+
+namespace TurretPitchConstants {
+
+constexpr int kTurretPitchMotorID = 24;
+
+constexpr rev::spark::SparkLowLevel::MotorType kTurretPitchMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kTurretPitchMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kTurretPitchMotorCurrentLimit = 40_A;
+
+} // namespace TurretPitchConstants

@@ -17,12 +17,13 @@ public:
    *
    * @param intake The pointer to the intake subsystem
    */
-  explicit StopIntake(IntakeSubsystem* intake);
+  explicit StopIntake(IntakeSubsystem* intake, frc::XboxController* operatorController);
 
   void Initialize() override;
   void End(bool interrupted) override;
   
 private:
   IntakeSubsystem* m_intake;
+  frc::XboxController* m_operatorController;
 };
 #endif //TESTBOARD

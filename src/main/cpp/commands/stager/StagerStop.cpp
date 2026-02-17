@@ -4,7 +4,7 @@
 
 #ifndef TESTBOARD
 
-StagerStop::StagerStop(StagerSubsystem *stager) : m_stager{stager} {
+StagerStop::StagerStop(StagerSubsystem *stager, frc::XboxController *operatorController) : m_stager{stager}, m_operatorController{operatorController} {
 
   AddRequirements(m_stager);
 }

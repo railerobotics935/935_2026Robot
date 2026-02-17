@@ -4,7 +4,7 @@
 #ifndef TESTBOARD
 
 #include "commands/shooter/StopShooter.h"
-StopShooter::StopShooter(ShooterSubsystem *shooter) : m_shooter{shooter} {
+StopShooter::StopShooter(ShooterSubsystem *shooter, frc::XboxController* operatorController) : m_shooter{shooter}, m_operatorController{operatorController} {
     AddRequirements(m_shooter);
 }
 void StopShooter::Initialize() {

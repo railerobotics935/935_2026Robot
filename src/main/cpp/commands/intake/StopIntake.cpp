@@ -4,7 +4,7 @@
 #ifndef TESTBOARD
 
 #include "commands/intake/StopIntake.h"
-StopIntake::StopIntake(IntakeSubsystem *intake) : m_intake{intake} {
+StopIntake::StopIntake(IntakeSubsystem *intake, frc::XboxController* operatorController) : m_intake{intake}, m_operatorController{operatorController} {
     AddRequirements(m_intake);
 }
 void StopIntake::Initialize() {

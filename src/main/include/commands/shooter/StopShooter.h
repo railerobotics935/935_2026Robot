@@ -17,12 +17,13 @@ public:
    *
    * @param shooter The pointer to the shooter subsystem
    */
-  explicit StopShooter(ShooterSubsystem* shooter);
+  explicit StopShooter(ShooterSubsystem* shooter, frc::XboxController* operatorController);
 
   void Initialize() override;
   void End(bool interrupted) override;
   
 private:
   ShooterSubsystem* m_shooter;
+  frc::XboxController* m_operatorController;
 };
 #endif //TESTBOARD

@@ -20,6 +20,9 @@ RobotContainer::RobotContainer() {
   #ifndef TESTBOARD
   m_turretPitchSubsystem.SetDefaultCommand(std::move(m_simpleMoveTurretPitch));
   m_turretYawSubsystem.SetDefaultCommand(std::move(m_simpleRotateTurretYaw));
+  m_stagerSubsystem.SetDefaultCommand(std::move(m_stagerStop));
+  m_shooterSubsystem.SetDefaultCommand(std::move(m_stopShooter));
+  m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake));
   #endif //testboard
 }
 

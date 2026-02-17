@@ -17,13 +17,14 @@ public:
    *
    * @param Stager The pointer to the stager subsystem
    */
-  explicit StagerStop(StagerSubsystem* stager);
+  explicit StagerStop(StagerSubsystem* stager, frc::XboxController* operatorController);
 
   void Initialize() override;
   void End(bool interrupted) override;
   
 private:
   StagerSubsystem* m_stager;
+  frc::XboxController* m_operatorController;
 };
 
 #endif //Testboard 

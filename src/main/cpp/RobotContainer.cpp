@@ -29,9 +29,14 @@ void RobotContainer::ConfigureBindings() {
  #ifndef TESTBOARD
  frc2::JoystickButton shootButton (&m_operatorController, ControllerConstants::kShootButton);
  frc2::JoystickButton stagerIntakeButton (&m_operatorController, ControllerConstants::kStagerIntakeButton);
+ frc2::JoystickButton intakeButton (&m_operatorController, ControllerConstants::kIntakeButton);
+ frc2::JoystickButton outtakeButton (&m_operatorController, ControllerConstants::kOuttakeButton);
+
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
  shootButton.WhileTrue(SimpleShoot{&m_shooterSubsystem}.ToPtr());
  stagerIntakeButton.WhileTrue(SimpleStagerIntake{&m_stagerSubsystem}.ToPtr());
+ intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem}.ToPtr());
+ outtakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem}.ToPtr());
  #endif //Testboard
  
 

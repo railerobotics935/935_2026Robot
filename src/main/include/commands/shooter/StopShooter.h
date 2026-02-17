@@ -17,7 +17,7 @@ public:
    *
    * @param shooter The pointer to the shooter subsystem
    */
-  explicit StopShooter(ShooterSubsystem* intake);
+  explicit StopShooter(ShooterSubsystem* shooter);
 
   void Initialize() override;
   void End(bool interrupted) override;

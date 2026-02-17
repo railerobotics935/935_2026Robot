@@ -14,12 +14,15 @@
 #include "subsystems/StagerSubsystem.h"
 #include "subsystems/TurretYawSubsystem.h"
 #include "subsystems/TurretPitchSubsystem.h"
+#include "subsystems/IntakeSubsystem.h"
 
 #include "commands/drive/DriveWithController.h"
 #include "commands/shooter/SimpleShoot.h"
 #include "commands/stager/SimpleStagerIntake.h"
 #include "commands/turretyaw/SimpleRotateTurretYaw.h"
 #include "commands/turretpitch/SimpleMoveTurretPitch.h"
+#include "commands/intake/SimpleIntake.h"
+#include "commands/intake/SimpleOuttake.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -50,6 +53,7 @@ class RobotContainer {
   StagerSubsystem m_stagerSubsystem;
   TurretYawSubsystem m_turretYawSubsystem;
   TurretPitchSubsystem m_turretPitchSubsystem;
+  IntakeSubsystem m_intakeSubsystem;
   #endif //testboard
 
   void ConfigureBindings();

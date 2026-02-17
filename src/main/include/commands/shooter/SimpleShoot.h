@@ -17,7 +17,7 @@ public:
    *
    * @param shooter The pointer to the shooter subsystem
    */
-  explicit SimpleShoot(ShooterSubsystem* intake);
+  explicit SimpleShoot(ShooterSubsystem* shooter);
 
   void Initialize() override;
   void End(bool interrupted) override;

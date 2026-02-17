@@ -188,9 +188,11 @@ constexpr int kOperatorRightTrigger = 3; // Pressing creates a POSITIVE output
 constexpr int kOperatorLeftXIndex = 0; // An input RIGHT creates a NEGATIVE output
 
 
-
+//operator buttons
 constexpr int kShootButton = 5; //rb
 constexpr int kStagerIntakeButton = 6; //lb
+constexpr int kIntakeButton = 1; //A
+constexpr int kOuttakeButton = 2; //B
 
 }  // namespace Controller Constants
 
@@ -240,3 +242,16 @@ constexpr rev::spark::SparkMaxConfig::IdleMode kTurretPitchMotorIdleMode = rev::
 constexpr units::ampere_t kTurretPitchMotorCurrentLimit = 40_A;
 
 } // namespace TurretPitchConstants
+
+namespace IntakeConstants {
+
+constexpr int kIntakeMotorID = 7;
+constexpr int kIntakeAMotorID = 8;
+constexpr int kIntakeBMotor = 9;
+
+constexpr rev::spark::SparkLowLevel::MotorType kIntakeMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
+
+} // namespace IntakeConstants

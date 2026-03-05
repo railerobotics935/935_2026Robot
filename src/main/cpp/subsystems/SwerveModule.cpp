@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-/*
+
 #include "subsystems/SwerveModule.h"
 
 #include <numbers>
@@ -32,8 +32,6 @@ SwerveModule::SwerveModule(const int drivingCANId, const int turningCANId,
   m_desiredState.angle = frc::Rotation2d(units::radian_t{m_turningAbsoluteEncoder.GetPosition()});
   m_drivingEncoder.SetPosition(0);
 
-  m_turningSparkMax.SetInverted(false);
-  m_drivingSparkMax.SetInverted(true);
 }
 
 void SwerveModule::ConfigureSparkMax() {
@@ -116,4 +114,3 @@ void SwerveModule::SetDesiredState(const frc::SwerveModuleState& desiredState){
 
   m_desiredState = desiredState;
 }
-*/

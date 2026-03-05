@@ -19,6 +19,7 @@
 #include <units/current.h>
 #include <frc/geometry/Pose3d.h>
 #include <frc/apriltag/AprilTagFields.h>
+#include <frc/apriltag/AprilTagFieldLayout.h>
 #include <rev/SparkMax.h>
 #include <iostream>
 #include <rev/config/SparkMaxConfig.h>
@@ -35,6 +36,8 @@
  * they are needed.
  */
 #define BURNSHOOTERSPARKMAX
+#define TESTBOARD
+#define BURNMODULESPARKMAX
 
 namespace OperatorConstants {
 
@@ -48,9 +51,11 @@ namespace RobotConstants {
 constexpr double kVoltageCompensationValue = 11.0;
 
 const units::meter_t kWheelBase =
-    0.6223_m;  // Distance between centers of front and back wheels on robot
-const units::meter_t kWheelWidth =
-    0.6223_m; // Distance between centers of left and right wheels on robot
+    0.4075_m;  // Distance between centers of front and back wheels on robot
+const units::meter_t kIntakeSideWheelWidth =
+    0.8125_m; // Distance between centers of left and right wheels on robot
+const units::meter_t kCurveSideWheelWidth =
+    0.525_m; // Distance between centers of left and right wheels on robot
 
 }
 
@@ -65,15 +70,15 @@ constexpr double kMagnitudeSlewRate = 7.0;   // percent per second (1 = 100%)
 constexpr double kRotationalSlewRate = 8.0;  // percent per second (1 = 100%)
 
 // CAN Sparkmax id numbers
-constexpr int kFrontLeftDriveMotorPort = 28;
-constexpr int kFrontRightDriveMotorPort = 20;
-constexpr int kBackLeftDriveMotorPort = 10;
-constexpr int kBackRightDriveMotorPort = 18;
+constexpr int kFrontLeftDriveMotorPort = 16;
+constexpr int kFrontRightDriveMotorPort = 28;
+constexpr int kBackLeftDriveMotorPort = 22;
+constexpr int kBackRightDriveMotorPort = 20;
 
-constexpr int kFrontLeftTurningMotorPort = 29;
-constexpr int kFrontRightTurningMotorPort = 21;
-constexpr int kBackLeftTurningMotorPort = 11;
-constexpr int kBackRightTurningMotorPort = 19;
+constexpr int kFrontLeftTurningMotorPort = 15;
+constexpr int kFrontRightTurningMotorPort = 29;
+constexpr int kBackLeftTurningMotorPort = 23;
+constexpr int kBackRightTurningMotorPort = 21;
 
 // PID Controller for the auto rotation of the robot
 constexpr double kRotationP = 2.5;
@@ -139,7 +144,7 @@ constexpr units::radian_t kTurningEncoderPositionPIDMaxInput =
 constexpr double kDrivingP = 0.0;
 constexpr double kDrivingI = 0.0;
 constexpr double kDrivingD = 0.0;
-constexpr double kDrivingFF = (1 / kDriveWheelFreeSpeedRps);
+constexpr double kDrivingFF = (4 / kDriveWheelFreeSpeedRps);
 constexpr double kDrivingMinOutput = -1;
 constexpr double kDrivingMaxOutput = 1;
 
@@ -255,3 +260,58 @@ constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark
 constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 
 } // namespace IntakeConstants
+
+namespace CameraConstants {
+
+constexpr double kYawP = 0.05;
+constexpr double kYawI = 0.0;
+constexpr double kYawD = 0.01;
+
+constexpr double kPitchP = 0.3;
+constexpr double kPitchI = 0.0;
+constexpr double kPitchD = 0.0;
+
+constexpr int counterMax = 250;
+constexpr int yawCounterMax = 50;
+
+// Min and Max standard deviations for the apriltag detetion 
+constexpr double kMinStandardDeviation = 0.2;
+constexpr double kMaxStandardDeviation = 3.0;
+
+// Max speed allowed for adding vidion measurments to the robot pose esitmator
+constexpr double kMaxEstimationSpeed = 0.25; // mps
+
+inline constexpr std::string_view kCameraName{"Camera1"};
+inline const frc::Transform3d kRobotToCam{
+    frc::Translation3d{0.5_m, 0.0_m, 0.5_m},
+    frc::Rotation3d{0_rad, -30_deg, 0_rad}};
+inline const frc::AprilTagFieldLayout kTagLayout{
+   frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::kDefaultField)}; 
+
+inline const Eigen::Matrix<double, 3, 1> kSingleTagStdDevs{4, 4, 8};
+inline const Eigen::Matrix<double, 3, 1> kMultiTagStdDevs{0.5, 0.5, 1};
+
+
+/**
+ * @param distance The raw distance from the apriltag
+ * 
+ * @return The standard deviation value for the distance
+*/
+double GetStandardDeviationFromDistance(double distance);
+
+// Pose3d/transformation2d of the camera relative to the robot
+// X if forward, Y is Left, Z is up 
+namespace FrontCamera {
+    const frc::Translation3d kTranlation3d{(units::meter_t)0.250, (units::meter_t)0.0, (units::meter_t)0.2286};
+    const frc::Rotation3d kRotation3d{(units::radian_t)0.0, (units::radian_t)std::numbers::pi / 12, (units::radian_t)0.0};
+    const frc::Pose3d kPose3d{kTranlation3d, kRotation3d};
+    
+} // namespace FrontCamera
+
+namespace OakDLiteCamera {
+    const frc::Translation3d kTranlation3d{(units::meter_t)-0.250, (units::meter_t)-0.08, (units::meter_t)0.2286};
+    const frc::Rotation3d kRotation3d{(units::radian_t)0.0, (units::radian_t)0.0, (units::radian_t)std::numbers::pi};
+    const frc::Pose3d kPose3d{kTranlation3d, kRotation3d};
+} // namespace OakDLiteCamera
+
+} // namespace CameraConstants

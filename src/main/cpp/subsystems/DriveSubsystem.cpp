@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-/*
+
 #include "subsystems/DriveSubsystem.h"
 
 #include <iostream>
@@ -47,20 +47,21 @@ DriveSubsystem::DriveSubsystem()
                 kBackRightTurnEncoderOffset},
 
     m_odometry{m_driveKinematics,
-                m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
+                -m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
                 {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
                 m_backLeft.GetPosition(), m_backRight.GetPosition()},
-                frc::Pose2d{(units::meter_t)3.0, (units::meter_t)3.0, m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw)}},
+                frc::Pose2d{(units::meter_t)3.0, (units::meter_t)3.0, -m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw)}},
 
     m_poseEstimator{m_driveKinematics,
-                m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
+                -m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
                 {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
                 m_backLeft.GetPosition(), m_backRight.GetPosition()},
-                frc::Pose2d{(units::meter_t)3.0, (units::meter_t)3.0, m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw)},
+                frc::Pose2d{(units::meter_t)3.0, (units::meter_t)3.0, -m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw)},
                 {0.05, 0.05, 0.001}, // Standard Deviation of the encoder position value
                 {0.2, 0.2, 0.05}} // Standard Deviation of vision pose esitmation
 {
 
+#if 0
 RobotConfig config = RobotConfig::fromGUISettings();
 
 AutoBuilder::configure(
@@ -86,7 +87,7 @@ AutoBuilder::configure(
       },
       this // Reference to this subsystem to set requirements
   );
-
+#endif
 
   // Initialize shuffleboard communication
   auto nt_inst = nt::NetworkTableInstance::GetDefault();
@@ -151,21 +152,21 @@ bool DriveSubsystem::InRedAlliance() {
 void DriveSubsystem::Periodic()
 {
   // Implementation of subsystem periodic method goes here.
-  m_odometry.Update(m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
+  m_odometry.Update(-m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
                     {m_frontLeft.GetPosition(), m_frontRight.GetPosition(), 
                     m_backLeft.GetPosition(), m_backRight.GetPosition()});
 
-  m_poseEstimator.Update(m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw), 
+  m_poseEstimator.Update(-m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw), 
                     {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
                     m_backLeft.GetPosition(), m_backRight.GetPosition()});
 
   // set odometry relative to the apriltag
-  if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)
-    EstimatePoseWithApriltag();
+//  if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)
+//    EstimatePoseWithApriltag();
   
   UpdateNTE();
 
-  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
+//  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
 
   //m_robotAngleController.SetP(nte_kp.GetDouble(4.5));
   //m_robotAngleController.SetI(nte_ki.GetDouble(0.002));
@@ -267,7 +268,7 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
       m_fieldRelative
           ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(
                 xSpeedDelivered, ySpeedDelivered, rotDelivered,
-                frc::Rotation2d(units::radian_t{m_gyro.GetAngle(frc::ADIS16470_IMU::IMUAxis::kZ)}))
+                frc::Rotation2d(units::radian_t{-m_gyro.GetAngle(frc::ADIS16470_IMU::IMUAxis::kZ)}))
           : frc::ChassisSpeeds{xSpeedDelivered, ySpeedDelivered, rotDelivered});
 
   m_driveKinematics.DesaturateWheelSpeeds(&states, DriveConstants::kMaxSpeed);
@@ -375,7 +376,7 @@ void DriveSubsystem::DriveFacingGoal(units::meters_per_second_t xSpeed,
           ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(
                 xSpeedDelivered, ySpeedDelivered, rotDelivered,
                 frc::Rotation2d(units::radian_t{
-                    m_gyro.GetAngle(frc::ADIS16470_IMU::IMUAxis::kZ)}))
+                    -m_gyro.GetAngle(frc::ADIS16470_IMU::IMUAxis::kZ)}))
           : frc::ChassisSpeeds{xSpeedDelivered, ySpeedDelivered, rotDelivered});
 
   m_driveKinematics.DesaturateWheelSpeeds(&states, DriveConstants::kMaxSpeed);
@@ -426,7 +427,7 @@ void DriveSubsystem::SetModuleStates(
 }
 
 units::degree_t DriveSubsystem::GetHeading() const {
-  return m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw);
+  return -m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw);
 }
 
 double DriveSubsystem::GetLinearRobotSpeed() {
@@ -447,7 +448,7 @@ void DriveSubsystem::SetFieldRelative() {
 }
 
 double DriveSubsystem::GetTurnRate() {
-  return (double)m_gyro.GetRate(frc::ADIS16470_IMU::kYaw);
+  return (double)-m_gyro.GetRate(frc::ADIS16470_IMU::kYaw);
 }
 
 frc::Pose2d DriveSubsystem::GetPose() {
@@ -490,6 +491,12 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
       pose);
 }
 
+void DriveSubsystem::AddVisionMeasurement(const frc::Pose2d& visionMeasurement,
+                                       units::second_t timestamp,
+                                       const Eigen::Vector3d& stdDevs) {
+  wpi::array<double, 3> newStdDevs{stdDevs(0), stdDevs(1), stdDevs(2)};
+  m_poseEstimator.AddVisionMeasurement(visionMeasurement, timestamp, newStdDevs);
+}
 
 
 void DriveSubsystem::EstimatePoseWithApriltag() {
@@ -547,7 +554,7 @@ void DriveSubsystem::EstimatePoseWithApriltag() {
   nte_numberOfTagsAdded.SetInteger(numberOfValidTags);
   nte_debugTimeForPoseEstimation.SetDouble((double)m_timer.GetFPGATimestamp() - startEstiamtionTime);
 #endif
-
+*/
 }       
   
 
@@ -560,4 +567,3 @@ double DriveSubsystem::SignedSquare(double input) {
   else
     return std::pow(input, 2);
 }
-*/

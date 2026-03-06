@@ -249,10 +249,10 @@ public:
    */
 
 frc::SwerveDriveKinematics<4> m_driveKinematics{
-    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kIntakeSideWheelWidth / 2)},   //Front Left
-    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2), units::meter_t(RobotConstants::kIntakeSideWheelWidth / 2)},   //Front Right
-    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2), units::meter_t(-RobotConstants::kCurveSideWheelWidth / 2)},  //Back Left
-    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2), units::meter_t(RobotConstants::kCurveSideWheelWidth / 2)}};  //Back Right
+    frc::Translation2d{units::meter_t(RobotConstants::kFrontWheelOffset),units::meter_t(RobotConstants::kIntakeSideWheelWidth / 2)},   //Front Left
+    frc::Translation2d{units::meter_t(RobotConstants::kFrontWheelOffset), units::meter_t(-RobotConstants::kIntakeSideWheelWidth / 2)},   //Front Right
+    frc::Translation2d{units::meter_t(RobotConstants::kRearWheelOffset), units::meter_t(RobotConstants::kCurveSideWheelWidth / 2)},  //Back Left
+    frc::Translation2d{units::meter_t(RobotConstants::kRearWheelOffset), units::meter_t(-RobotConstants::kCurveSideWheelWidth / 2)}};  //Back Right
 
 private:
   // Declaring all of the network table entries
@@ -309,8 +309,8 @@ private:
   double m_turning_Kd = ModuleConstants::kTurningD;
 
 
-  // The gyro sensor
-  frc::ADIS16470_IMU m_gyro{frc::ADIS16470_IMU::IMUAxis::kZ, frc::ADIS16470_IMU::IMUAxis::kY, frc::ADIS16470_IMU::IMUAxis::kX};
+  // The gyro sensor, order of arguments: yaw, pitch, roll
+  frc::ADIS16470_IMU m_gyro{frc::ADIS16470_IMU::IMUAxis::kZ, frc::ADIS16470_IMU::IMUAxis::kX, frc::ADIS16470_IMU::IMUAxis::kY};
   // Odometry class for tracking robot pose
   // 4 defines the number of modules
   frc::SwerveDriveOdometry<4> m_odometry;

@@ -51,24 +51,24 @@ class RobotContainer {
   // The robot's subsystems are defined here
   ExampleSubsystem m_subsystem;
   DriveSubsystem m_driveSubsystem;
-  #ifndef TESTBOARD
-  ShooterSubsystem m_shooterSubsystem;
-  StagerSubsystem m_stagerSubsystem;
+  //#ifndef TESTBOARD
+  //ShooterSubsystem m_shooterSubsystem;
+  //StagerSubsystem m_stagerSubsystem;
   TurretYawSubsystem m_turretYawSubsystem;
-  TurretPitchSubsystem m_turretPitchSubsystem;
-  IntakeSubsystem m_intakeSubsystem;
-  #endif //testboard
+  //TurretPitchSubsystem m_turretPitchSubsystem;
+  //IntakeSubsystem m_intakeSubsystem;
+  //#endif //testboard
 
   void ConfigureBindings();
 
   // Commands
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
-  #ifndef TESTBOARD
+  //#ifndef TESTBOARD
   SimpleRotateTurretYaw m_simpleRotateTurretYaw{&m_turretYawSubsystem, &m_operatorController};
-  SimpleMoveTurretPitch m_simpleMoveTurretPitch{&m_turretPitchSubsystem, &m_operatorController};
-  StagerStop m_stagerStop{&m_stagerSubsystem, &m_operatorController};
-  StopIntake m_stopIntake{&m_intakeSubsystem, &m_operatorController};
-  StopShooter m_stopShooter{&m_shooterSubsystem, &m_operatorController};
-  #endif //testboard
+  //SimpleMoveTurretPitch m_simpleMoveTurretPitch{&m_turretPitchSubsystem, &m_operatorController};
+  //StagerStop m_stagerStop{&m_stagerSubsystem, &m_operatorController};
+  //StopIntake m_stopIntake{&m_intakeSubsystem, &m_operatorController};
+  //StopShooter m_stopShooter{&m_shooterSubsystem, &m_operatorController};
+  //#endif //testboard
 
 };

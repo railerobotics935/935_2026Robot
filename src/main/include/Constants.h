@@ -50,8 +50,12 @@ namespace RobotConstants {
 
 constexpr double kVoltageCompensationValue = 11.0;
 
-const units::meter_t kWheelBase =
-    0.4075_m;  // Distance between centers of front and back wheels on robot
+//const units::meter_t kWheelBase =
+//    0.4075_m;  // Distance between centers of front and back wheels on robot
+const units::meter_t kFrontWheelOffset =
+    0.3725_m;  // Distance between center of robot to front wheels on robot
+const units::meter_t kRearWheelOffset =
+    -0.035_m;  // Distance between center of robot to back wheels on robot
 const units::meter_t kIntakeSideWheelWidth =
     0.8125_m; // Distance between centers of left and right wheels on robot
 const units::meter_t kCurveSideWheelWidth =

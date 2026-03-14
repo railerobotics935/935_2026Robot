@@ -25,7 +25,7 @@
 
 #include "Constants.h"
 
-/*
+
 #define MAX_NUM_TAGS 16
 
 
@@ -38,7 +38,7 @@ public:
    * 
    * @param cameraName The camera name from network tables
    * @param cameraPose3d The 3d position of the camera 
-  
+  */
   ApriltagSensor (std::function<void(frc::Pose2d, units::second_t,
                             Eigen::Matrix<double, 3, 1>)> estConsumer);
 
@@ -59,31 +59,31 @@ public:
   /**
    * @param tag The ID number for the apriltag wanted to identify
    * @return The Field Relative Pose3d
-  
+  */
   frc::Pose3d GetFieldRelativePose(int tag);
 
   /**
    * @param tag the ID number for the apriltag wanted to identify
    * @return An array of standard deviations scaled by the distance form the shooter
-  
+  */
   wpi::array<double, 3> GetStandardDeviations(int tag);
 
   /**
    * @return If the tag is tracked
-  
+  */
   bool TagIsTracked(int tag);
 
   /**
    * @param tag The ID number for the apriltag wanted to identify
    * @return The Timestamp of a pose
-  
+  */
   units::second_t GetTimestamp(int tag);
 
   /**
    * Uses the timestamp information to deterime if the camera has new data compared to the last time ran
    * 
    * @return True if the camera has new data to process
-  
+  */
  bool HasNewData(int tag);
 #endif
 
@@ -132,4 +132,3 @@ private:
   std::shared_ptr<photon::PhotonCameraSim> cameraSim;
 
 };
-*/

@@ -6,8 +6,6 @@
 #include "subsystems/TurretPitchSubsystem.h"
 #include "Constants.h"
 
-#ifndef TESTBOARD
-
 TurretPitchSubsystem::TurretPitchSubsystem() 
 
 : m_turretPitchSparkMax{TurretPitchConstants::kTurretPitchMotorID, TurretPitchConstants::kTurretPitchMotorType}
@@ -40,10 +38,19 @@ nte_turretPitchAngle = nt_table->GetEntry("Turret/Turret Pitch");
   #endif
 }
 
+bool TurretPitchSubsystem::TurretPitchAtZero() {
+  return !m_PitchLimitSwitch.Get();
+}
 
 void TurretPitchSubsystem::Periodic() {
-  nte_turretPitchAngle.SetDouble(m_pitchEncoder.GetPosition()); // Up is NEGATIVE
+  nte_turretPitchAngle.SetDouble(m_turretPitchEncoder.GetPosition()); // Up is NEGATIVE
+
+    if (TurretPitchAtZero()){
+      m_turretPitchEncoder.SetPosition(0.0);
+     }
 }
+
+
 
 
 void TurretPitchSubsystem::SetTurretPitchMotorPower(double power) {
@@ -55,4 +62,3 @@ void TurretPitchSubsystem::SetTurretPitchMotorPower(double power) {
 double TurretPitchSubsystem::GetDirection() {
   return m_turretPitchSparkMax.Get();
 }
-#endif //Testboard

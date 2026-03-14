@@ -437,6 +437,10 @@ double DriveSubsystem::GetLinearRobotSpeed() {
 
 void DriveSubsystem::ZeroHeading() {
   m_gyro.Reset();
+
+    //frc::Pose2d zeroPose{0_m, 0_m, frc::Rotation2d{0_deg}};
+
+    //ResetOdometry(zeroPose);
 }
 
 void DriveSubsystem::SetRobotRelative() {

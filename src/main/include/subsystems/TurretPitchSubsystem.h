@@ -13,7 +13,7 @@
 #include <iostream>
 #include <Constants.h>
 
-#ifndef TESTBOARD
+
 
 class TurretPitchSubsystem : public frc2::SubsystemBase {
  public:
@@ -39,6 +39,8 @@ class TurretPitchSubsystem : public frc2::SubsystemBase {
    */
   //bool CoralInShooter();
 
+  bool TurretPitchAtZero();
+
  private:
 
   void ConfigureSparkMax();
@@ -50,7 +52,13 @@ class TurretPitchSubsystem : public frc2::SubsystemBase {
   rev::spark::SparkMax m_turretPitchSparkMax;
 
   // Encoders
-  rev::spark::SparkRelativeEncoder m_pitchEncoder = m_turretPitchSparkMax.GetEncoder();
+  rev::spark::SparkRelativeEncoder m_turretPitchEncoder = m_turretPitchSparkMax.GetEncoder();
+
+  // Limit Switch 
+  frc::DigitalInput m_PitchLimitSwitch{TurretPitchConstants::kPitchLimitSwitchPort};
+
+  // PID
+  rev::spark::SparkClosedLoopController m_TurretPitchPID = m_turretPitchSparkMax.GetClosedLoopController();
 
   // Light Sensor is a digital input in the DIO port (digital input output)
   //frc::DigitalInput m_lightSensor{ShooterConstants::kLightSensorID};
@@ -60,4 +68,3 @@ class TurretPitchSubsystem : public frc2::SubsystemBase {
   //nt::NetworkTableEntry nte_coralInShooter;
   nt::NetworkTableEntry nte_turretPitchAngle;
 };
-#endif //TESTBOARD

@@ -19,15 +19,19 @@ RobotContainer::RobotContainer() {
   m_driveSubsystem.SetDefaultCommand(std::move(m_driveWithController));
   #ifndef TESTBOARD
   m_turretPitchSubsystem.SetDefaultCommand(std::move(m_simpleMoveTurretPitch));
-  m_turretYawSubsystem.SetDefaultCommand(std::move(m_simpleRotateTurretYaw));
   m_stagerSubsystem.SetDefaultCommand(std::move(m_stagerStop));
   m_shooterSubsystem.SetDefaultCommand(std::move(m_stopShooter));
   m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake)); 
   #endif //testboard
+  m_turretYawSubsystem.SetDefaultCommand(std::move(m_simpleRotateTurretYaw));
+
 }
 
 void RobotContainer::ConfigureBindings() {
   // Configure your trigger bindings here
+   frc2::JoystickButton resetButton (&m_driveController, ControllerConstants::kResetButton);
+
+   resetButton.OnTrue(frc2::cmd::RunOnce([&] {m_driveSubsystem.ZeroHeading();}, {}));
   
  #ifndef TESTBOARD
  frc2::JoystickButton shootButton (&m_operatorController, ControllerConstants::kShootButton);

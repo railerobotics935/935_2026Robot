@@ -2,7 +2,7 @@
 #include "Constants.h"
 #include "commands/turretpitch/SimpleMoveTurretPitch.h"
 
-#ifndef TESTBOARD
+
 
 SimpleMoveTurretPitch::SimpleMoveTurretPitch(TurretPitchSubsystem *turretPitch, frc::XboxController *operatorController) : m_turretPitch{turretPitch}, m_operatorController{operatorController} {
 
@@ -42,5 +42,3 @@ void SimpleMoveTurretPitch::End(bool interrupted) {
 #endif
   m_turretPitch->SetTurretPitchMotorPower(0.0);
 }
-
-#endif //TESTBOARD

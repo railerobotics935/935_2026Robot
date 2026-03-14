@@ -8,7 +8,6 @@
 #include "Constants.h"
 #include "subsystems/TurretPitchSubsystem.h"
 
-#ifndef TESTBOARD
 
 class SimpleMoveTurretPitch
   : public frc2::CommandHelper<frc2::Command, SimpleMoveTurretPitch> {
@@ -28,4 +27,3 @@ private:
   TurretPitchSubsystem* m_turretPitch;
   frc::XboxController* m_operatorController;
 };
-#endif //TESTBOARD

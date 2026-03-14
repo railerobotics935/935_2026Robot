@@ -2,7 +2,7 @@
 #include "Constants.h"
 #include "commands/turretyaw/SimpleRotateTurretYaw.h"
 
-#ifndef TESTBOARD
+//#ifndef TESTBOARD
 
 SimpleRotateTurretYaw::SimpleRotateTurretYaw(TurretYawSubsystem *turretYaw, frc::XboxController *operatorController) : m_turretYaw{turretYaw}, m_operatorController{operatorController} {
 
@@ -19,7 +19,8 @@ void SimpleRotateTurretYaw::Execute() {
 
   double rotPower = -m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftXIndex);
 
-  m_turretYaw->SetTurretYawMotorPower(rotPower);
+
+  m_turretYaw->SetTurretYawMotorPower(rotPower/3.0);
   
 }
 
@@ -30,4 +31,4 @@ void SimpleRotateTurretYaw::End(bool interrupted) {
 #endif
   m_turretYaw->SetTurretYawMotorPower(0.0);
 }
-#endif //TESTBOARD
+//#endif //TESTBOARD

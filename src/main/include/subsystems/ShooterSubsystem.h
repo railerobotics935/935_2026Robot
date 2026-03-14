@@ -12,8 +12,13 @@
 #include <frc/DigitalInput.h>
 #include <iostream>
 #include <Constants.h>
+#include <networktables/NetworkTableEntry.h>
+#include <networktables/NetworkTableInstance.h>
+#include <networktables/DoubleTopic.h>
 
-#ifndef TESTBOARD
+#include "Constants.h"
+
+//#ifndef TESTBOARD
 
 class ShooterSubsystem : public frc2::SubsystemBase {
  public:
@@ -34,12 +39,20 @@ class ShooterSubsystem : public frc2::SubsystemBase {
    */
   double GetDirection();
 
+  void SetNewTurretPower();
+
   /**
    * @return If light sensor has detected a coral
    */
   //bool CoralInShooter();
 
  private:
+ 
+  nt::NetworkTableEntry nte_turret_power;
+
+  nt::DoubleSubscriber turret_power_sub;
+
+  double m_turret_power = ShooterConstants::kTurretPower;
 
   void ConfigureSparkMax();
 
@@ -58,4 +71,4 @@ class ShooterSubsystem : public frc2::SubsystemBase {
   //nt::NetworkTableEntry nte_coralInShooter;
 };
 
-#endif //TESBOARD
+//#endif //TESBOARD

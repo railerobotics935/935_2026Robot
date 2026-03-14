@@ -13,7 +13,7 @@
 #include <iostream>
 #include <Constants.h>
 
-#ifndef TESTBOARD
+//#ifndef TESTBOARD
 
 class TurretYawSubsystem : public frc2::SubsystemBase {
  public:
@@ -39,6 +39,9 @@ class TurretYawSubsystem : public frc2::SubsystemBase {
    */
   //bool CoralInShooter();
 
+  bool TurretYawAtZero();
+
+
  private:
 
   void ConfigureSparkMax();
@@ -52,6 +55,11 @@ class TurretYawSubsystem : public frc2::SubsystemBase {
   // Encoders
   rev::spark::SparkRelativeEncoder m_turretYawEncoder = m_turretYawSparkMax.GetEncoder();
 
+  //PID Controller
+  rev::spark::SparkClosedLoopController m_TurretYawPID = m_turretYawSparkMax.GetClosedLoopController();
+
+  int m_prevDirection;
+
   // Light Sensor is a digital input in the DIO port (digital input output)
   //frc::DigitalInput m_lightSensor{ShooterConstants::kLightSensorID};
 
@@ -59,5 +67,13 @@ class TurretYawSubsystem : public frc2::SubsystemBase {
   //Network Table Entry
   //nt::NetworkTableEntry nte_coralInShooter;
   nt::NetworkTableEntry nte_turretYawAngle;
+
+  // Limit switch is a digital input in the DIO port (digital input output)
+  frc::DigitalInput m_YawLimitSwitch{TurretYawConstants::kYawLimitSwitchPort};
+
+  // defaults based on turret placed at zero point when powered off
+  double m_turretMaxRotation = 11.0;
+  double m_turretMinRotation = -12.0;
 };
-#endif //Tesboard
+
+//#endif //Tesboard

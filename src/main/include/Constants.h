@@ -25,6 +25,7 @@
 #include <rev/config/SparkMaxConfig.h>
 
 
+
 //#define TESTBOARD //disable when on actual robot, to seperate when we are working on the oculus vs the actual robot 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
@@ -74,12 +75,12 @@ constexpr double kMagnitudeSlewRate = 7.0;   // percent per second (1 = 100%)
 constexpr double kRotationalSlewRate = 8.0;  // percent per second (1 = 100%)
 
 // CAN Sparkmax id numbers
-constexpr int kFrontLeftDriveMotorPort = 16;
+constexpr int kFrontLeftDriveMotorPort = 26;
 constexpr int kFrontRightDriveMotorPort = 28;
 constexpr int kBackLeftDriveMotorPort = 22;
 constexpr int kBackRightDriveMotorPort = 20;
 
-constexpr int kFrontLeftTurningMotorPort = 15;
+constexpr int kFrontLeftTurningMotorPort = 27;
 constexpr int kFrontRightTurningMotorPort = 29;
 constexpr int kBackLeftTurningMotorPort = 23;
 constexpr int kBackRightTurningMotorPort = 21;
@@ -196,6 +197,12 @@ constexpr int kOperatorLeftTrigger = 2; // Pressing creates a POSITIVE output
 constexpr int kOperatorRightTrigger = 3; // Pressing creates a POSITIVE output
 constexpr int kOperatorLeftXIndex = 0; // An input RIGHT creates a NEGATIVE output
 
+//Driver Buttons
+constexpr int kResetButton = 2;
+constexpr int kFieldRelativeButton = 7;
+constexpr int kRobotRelativeButton = 8;
+
+
 
 //operator buttons
 constexpr int kShootButton = 5; //rb
@@ -210,6 +217,8 @@ namespace ShooterConstants {
 // Intake Motors
 constexpr int kShooterRightMotorID = 23;
 constexpr int kShooterLeftMotorID = 22;
+
+constexpr double kTurretPower = -1;
 
 constexpr rev::spark::SparkLowLevel::MotorType kShooterMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kShooterMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
@@ -232,23 +241,27 @@ constexpr units::ampere_t kStagerMotorCurrentLimit = 40_A;
 
 namespace TurretYawConstants {
 
-constexpr int kTurretYawMotorID = 21;
+constexpr int kTurretYawMotorID = 24;
 
 constexpr rev::spark::SparkLowLevel::MotorType kTurretYawMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kTurretYawMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
 
 constexpr units::ampere_t kTurretYawMotorCurrentLimit = 40_A;
 
+constexpr int kYawLimitSwitchPort = 8;
+
 } // namespace TurretYawConstants
 
 namespace TurretPitchConstants {
 
-constexpr int kTurretPitchMotorID = 24;
+constexpr int kTurretPitchMotorID = 11;
 
 constexpr rev::spark::SparkLowLevel::MotorType kTurretPitchMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kTurretPitchMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
 
 constexpr units::ampere_t kTurretPitchMotorCurrentLimit = 40_A;
+
+constexpr int kPitchLimitSwitchPort = 9;
 
 } // namespace TurretPitchConstants
 
@@ -284,6 +297,7 @@ constexpr double kMaxStandardDeviation = 3.0;
 
 // Max speed allowed for adding vidion measurments to the robot pose esitmator
 constexpr double kMaxEstimationSpeed = 0.25; // mps
+
 
 inline constexpr std::string_view kCameraName{"Camera1"};
 inline const frc::Transform3d kRobotToCam{

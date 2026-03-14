@@ -7,7 +7,7 @@
 
 #include "subsystems/TurretYawSubsystem.h"
 
-#ifndef TESTBOARD
+//#ifndef TESTBOARD
 
 class SimpleRotateTurretYaw
   : public frc2::CommandHelper<frc2::Command, SimpleRotateTurretYaw> {
@@ -28,4 +28,4 @@ private:
   frc::XboxController* m_operatorController;
 };
 
-#endif //TESTBOARD
+//#endif //TESTBOARD

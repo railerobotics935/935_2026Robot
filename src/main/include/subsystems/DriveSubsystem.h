@@ -14,6 +14,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <networktables/NetworkTableEntry.h>
 #include <networktables/NetworkTableInstance.h>
+#include <networktables/DoubleTopic.h>
 #include <frc/smartdashboard/Field2d.h>
 #include <frc/apriltag/AprilTagFieldLayout.h>
 #include <frc/estimator/SwerveDrivePoseEstimator.h>
@@ -307,7 +308,6 @@ private:
   double m_turning_Kp = ModuleConstants::kTurningP;
   double m_turning_Ki = ModuleConstants::kTurningI;
   double m_turning_Kd = ModuleConstants::kTurningD;
-
 
   // The gyro sensor, order of arguments: yaw, pitch, roll
   frc::ADIS16470_IMU m_gyro{frc::ADIS16470_IMU::IMUAxis::kZ, frc::ADIS16470_IMU::IMUAxis::kX, frc::ADIS16470_IMU::IMUAxis::kY};

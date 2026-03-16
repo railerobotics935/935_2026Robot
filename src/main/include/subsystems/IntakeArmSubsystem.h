@@ -15,19 +15,19 @@
 
 #ifndef TESTBOARD
 
-class IntakeSubsystem : public frc2::SubsystemBase {
+class IntakeArmSubsystem : public frc2::SubsystemBase {
  public:
   /**
    * Picks up game pieces
   */
-  IntakeSubsystem();
+  IntakeArmSubsystem();
 
   // Sets the motor's power (between -1.0 and 1.0).
   
   void Periodic() override;
 
   
-  void SetIntakeMotorPower(double power);
+  void SetIntakeArmMotorPower(double power);
 
   /**
    * @return Direction intake motor is moving
@@ -47,14 +47,19 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
 
   // Motor Controllers
-  rev::spark::SparkMax m_intakeFrontSparkMax;
-  rev::spark::SparkMax m_intakeRearSparkMax;
+  rev::spark::SparkMax m_intakeArmSparkMax;
+
+  // Encoder
+  rev::spark::SparkAbsoluteEncoder m_intakeArmAbsoluteEncoder = m_intakeArmSparkMax.GetAbsoluteEncoder();
+
+  //Network Table Entry
+  nt::NetworkTableEntry nte_armEncoder;
 
   // Light Sensor is a digital input in the DIO port (digital input output)
   //frc::DigitalInput m_lightSensor{IntakeConstants::kLightSensorID};
 
 
-  //Network Table Entry
+
   //nt::NetworkTableEntry nte_coralInIntake;
 };
 

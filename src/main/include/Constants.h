@@ -37,8 +37,11 @@
  * they are needed.
  */
 #define BURNSHOOTERSPARKMAX
-#define TESTBOARD
+//#define TESTBOARD
 #define BURNMODULESPARKMAX
+#define BURNINTAKESPARKMAX
+#define BURNINTAKEARMSPARKMAX
+#define BURNAGITATORSPARKMAX
 
 namespace OperatorConstants {
 
@@ -102,7 +105,7 @@ constexpr int kBackRightTurningEncoderPort = kBackRightTurningMotorPort;
 //constexpr double kFrontRightDriveEncoderOffset = (3.2676) - (std::numbers::pi / 3) - 0.062; 
 //constexpr double kBackLeftDriveEncoderOffset =  (2.0477) - (2.0 * std::numbers::pi / 3) + std::numbers::pi + 0.050; //(0.6988 + (std::numbers::pi / 2)); 
 //constexpr double kBackRightDriveEncoderOffset = (3.8439 + (std::numbers::pi / 2)) - 0.019; //(2.0472 + (std::numbers::pi)); 
-constexpr double kFrontLeftTurnEncoderOffset = (std::numbers::pi / 2); //-(std::numbers::pi / 2); //2.789 - (std::numbers::pi / 2) - std::numbers::pi;
+constexpr double kFrontLeftTurnEncoderOffset = (std::numbers::pi); //-(std::numbers::pi / 2); //2.789 - (std::numbers::pi / 2) - std::numbers::pi;
 constexpr double kFrontRightTurnEncoderOffset = (std::numbers::pi); //4.996 - std::numbers::pi; 
 constexpr double kBackLeftTurnEncoderOffset = 0; //5.756; 
 constexpr double kBackRightTurnEncoderOffset = -((std::numbers::pi) / 2); //4.407 + (std::numbers::pi / 2) - std::numbers::pi;
@@ -205,18 +208,20 @@ constexpr int kRobotRelativeButton = 8;
 
 
 //operator buttons
-constexpr int kShootButton = 5; //rb
-constexpr int kStagerIntakeButton = 6; //lb
+constexpr int kShootButton = 5; // RB
+constexpr int kStagerIntakeButton = 6; // LB
 constexpr int kIntakeButton = 1; //A
 constexpr int kOuttakeButton = 2; //B
+constexpr int kRaiseArmButton = 4; // Y
+constexpr int kLowerArmButton = 3; // X
 
 }  // namespace Controller Constants
 
 namespace ShooterConstants {
 
 // Intake Motors
-constexpr int kShooterRightMotorID = 23;
-constexpr int kShooterLeftMotorID = 22;
+constexpr int kShooterRightMotorID = 10;
+constexpr int kShooterLeftMotorID = 12;
 
 constexpr double kTurretPower = -1;
 
@@ -229,7 +234,7 @@ constexpr units::ampere_t kShooterMotorCurrentLimit = 40_A;
 
 namespace StagerConstants {
     
-constexpr int kStagerShooterMotorID = 20;
+constexpr int kStagerShooterMotorID = 19;
 
     
 constexpr rev::spark::SparkLowLevel::MotorType kStagerMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
@@ -267,9 +272,9 @@ constexpr int kPitchLimitSwitchPort = 9;
 
 namespace IntakeConstants {
 
-constexpr int kIntakeMotorID = 7;
-constexpr int kIntakeAMotorID = 8;
-constexpr int kIntakeBMotor = 9;
+constexpr int kIntakeFrontMotorID = 16;
+constexpr int kIntakeRearMotorID = 17;
+constexpr int kIntakeArmMotorID = 18;
 
 constexpr rev::spark::SparkLowLevel::MotorType kIntakeMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
@@ -277,6 +282,17 @@ constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark
 constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 
 } // namespace IntakeConstants
+
+namespace AgitatorConstants {
+
+constexpr int kAgitatorMotorID = 25;
+
+constexpr rev::spark::SparkLowLevel::MotorType kAgitatorMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kAgitatorMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kAgitatorMotorCurrentLimit = 40_A;
+
+} // namespace AgitatorConstants
 
 namespace CameraConstants {
 

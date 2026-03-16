@@ -6,6 +6,7 @@
 #include <frc/XboxController.h>
 
 #include "subsystems/StagerSubsystem.h"
+#include "subsystems/AgitatorSubsystem.h"
 #include "Constants.h"
 
 #ifndef TESTBOARD
@@ -17,14 +18,16 @@ public:
    * Creates a new SimpleStagerIntake.
    *
    * @param Stager The pointer to the stager subsystem
+   * @param Agitator The pointer to the agitator subsystem
    */
-  explicit SimpleStagerIntake(StagerSubsystem* stager);
+  explicit SimpleStagerIntake(StagerSubsystem* stager, AgitatorSubsystem* agitator);
 
   void Initialize() override;
   void End(bool interrupted) override;
   
 private:
   StagerSubsystem* m_stager;
+  AgitatorSubsystem* m_agitator;
 };
 
 #endif //Tesboard

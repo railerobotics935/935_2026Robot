@@ -10,18 +10,28 @@
 
 IntakeSubsystem::IntakeSubsystem() 
 
-: m_intakeSparkMax{IntakeConstants::kIntakeMotorID, IntakeConstants::kIntakeMotorType} {
+: m_intakeFrontSparkMax{IntakeConstants::kIntakeFrontMotorID, IntakeConstants::kIntakeMotorType}, m_intakeRearSparkMax{IntakeConstants::kIntakeRearMotorID, IntakeConstants::kIntakeMotorType} {
 
    #ifdef BURNINTAKESPARKMAX
 
-  rev::spark::SparkMaxConfig intakeSparkMaxConfig{};
+  rev::spark::SparkMaxConfig intakeFrontSparkMaxConfig{};
 
-  intakeSparkMaxConfig
+  intakeFrontSparkMaxConfig
   .VoltageCompensation(RobotConstants::kVoltageCompensationValue)
   .SetIdleMode(IntakeConstants::kIntakeMotorIdleMode)
   .SmartCurrentLimit(IntakeConstants::kIntakeMotorCurrentLimit.value());
 
-  m_intakeSparkMax.Configure(intakeSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+  m_intakeFrontSparkMax.Configure(intakeFrontSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
+
+  rev::spark::SparkMaxConfig intakeRearSparkMaxConfig{};
+
+  intakeRearSparkMaxConfig
+  .VoltageCompensation(RobotConstants::kVoltageCompensationValue)
+  .SetIdleMode(IntakeConstants::kIntakeMotorIdleMode)
+  .SmartCurrentLimit(IntakeConstants::kIntakeMotorCurrentLimit.value())
+  .Follow(IntakeConstants::kIntakeFrontMotorID, false);
+
+  m_intakeRearSparkMax.Configure(intakeRearSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 
 //auto nt_inst = nt::NetworkTableInstance::GetDefault();
 //auto nt_table = nt_inst.GetTable("Intake");
@@ -42,11 +52,11 @@ void IntakeSubsystem::Periodic() {
 
 void IntakeSubsystem::SetIntakeMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 
-  m_intakeSparkMax.Set(power);    
+  m_intakeFrontSparkMax.Set(power);    
 
 }
 
 double IntakeSubsystem::GetDirection() {
-  return m_intakeSparkMax.Get();
+  return m_intakeFrontSparkMax.Get();
 }
 #endif //testboard

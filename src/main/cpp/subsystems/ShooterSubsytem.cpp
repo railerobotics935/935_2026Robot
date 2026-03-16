@@ -31,8 +31,7 @@ ShooterSubsystem::ShooterSubsystem()
   .VoltageCompensation(RobotConstants::kVoltageCompensationValue)
   .SetIdleMode(ShooterConstants::kShooterMotorIdleMode)
   .SmartCurrentLimit(ShooterConstants::kShooterMotorCurrentLimit.value())
-  .Follow(ShooterConstants::kShooterRightMotorID, true)
-  .Inverted(true);
+  .Follow(ShooterConstants::kShooterRightMotorID, false);
 
    m_leftShooterSparkMax.Configure(leftShooterSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 

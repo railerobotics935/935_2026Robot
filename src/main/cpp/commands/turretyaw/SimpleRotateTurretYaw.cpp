@@ -17,8 +17,12 @@ void SimpleRotateTurretYaw::Initialize() {
 
 void SimpleRotateTurretYaw::Execute() {
 
-  double rotPower = -m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftXIndex);
+  double rotPower;
 
+  if(m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftXIndex) != 0.0)
+    rotPower = -m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftXIndex);
+  else
+    rotPower = 0.001;
 
   m_turretYaw->SetTurretYawMotorPower(rotPower/3.0);
   

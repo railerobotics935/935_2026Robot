@@ -15,6 +15,8 @@
 #include "subsystems/TurretYawSubsystem.h"
 #include "subsystems/TurretPitchSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
+#include "subsystems/IntakeArmSubsystem.h"
+#include "subsystems/AgitatorSubsystem.h"
 
 #include "commands/drive/DriveWithController.h"
 #include "commands/shooter/SimpleShoot.h"
@@ -26,6 +28,11 @@
 #include "commands/intake/SimpleIntake.h"
 #include "commands/intake/SimpleOuttake.h"
 #include "commands/intake/StopIntake.h"
+#include "commands/intakearm/SimpleLowerArm.h"
+#include "commands/intakearm/SimpleRaiseArm.h"
+#include "commands/intakearm/SimpleStopArm.h"
+#include "commands/stager/AgitatorStop.h"
+
 #include <frc2/command/Commands.h>
 
 /**
@@ -59,6 +66,9 @@ class RobotContainer {
   IntakeSubsystem m_intakeSubsystem;
   #endif //testboard
   TurretYawSubsystem m_turretYawSubsystem;
+  IntakeArmSubsystem m_intakeArmSubsystem;
+  AgitatorSubsystem m_agitatorSubsystem;
+  
 
 
   void ConfigureBindings();
@@ -72,5 +82,7 @@ class RobotContainer {
   StopIntake m_stopIntake{&m_intakeSubsystem, &m_operatorController};
   StopShooter m_stopShooter{&m_shooterSubsystem, &m_operatorController};
   #endif //testboard
+  SimpleStopArm m_simpleStopArm{&m_intakeArmSubsystem};
+  AgitatorStop m_agitatorStop{&m_agitatorSubsystem};
 
 };

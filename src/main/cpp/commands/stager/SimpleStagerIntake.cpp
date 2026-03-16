@@ -4,16 +4,18 @@
 
 #ifndef TESTBOARD
 
-SimpleStagerIntake::SimpleStagerIntake(StagerSubsystem *stager) : m_stager{stager} {
+SimpleStagerIntake::SimpleStagerIntake(StagerSubsystem *stager, AgitatorSubsystem* agitator) : m_stager{stager}, m_agitator{agitator} {
 
   AddRequirements(m_stager);
+  AddRequirements(m_agitator);
 }
 
 void SimpleStagerIntake::Initialize() {
 #ifdef PRINTDEBUG
   std::cout << "SimpleStagerIntake Initialized\r\n";
 #endif
-  m_stager->SetStagerMotorPower(-1.0);
+  m_stager->SetStagerMotorPower(1.0);
+  m_agitator->SetAgitatorMotorPower(1.0);
 }
 
 
@@ -22,6 +24,7 @@ void SimpleStagerIntake::End(bool interrupted) {
   std::cout << "SimpleStagerIntake Ended\r\n";
 #endif
   m_stager->SetStagerMotorPower(0.0);
+  m_agitator->SetAgitatorMotorPower(0.0);
 }
 
 #endif

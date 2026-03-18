@@ -42,6 +42,7 @@
 #define BURNINTAKESPARKMAX
 #define BURNINTAKEARMSPARKMAX
 #define BURNAGITATORSPARKMAX
+#define PRINTDEBUG
 
 namespace OperatorConstants {
 
@@ -199,6 +200,7 @@ constexpr int kDriveRightXIndex = 4; // An input RIGHT creates a NEGATIVE output
 constexpr int kOperatorLeftTrigger = 2; // Pressing creates a POSITIVE output
 constexpr int kOperatorRightTrigger = 3; // Pressing creates a POSITIVE output
 constexpr int kOperatorLeftXIndex = 0; // An input RIGHT creates a NEGATIVE output
+constexpr int kOperatorRightYIndex = 5; // An input UP creates a NEGATIVE output
 
 //Driver Buttons
 constexpr int kResetButton = 2;
@@ -208,10 +210,8 @@ constexpr int kRobotRelativeButton = 8;
 
 
 //operator buttons
-constexpr int kShootButton = 5; // RB
-constexpr int kStagerIntakeButton = 6; // LB
-constexpr int kIntakeButton = 1; //A
-constexpr int kOuttakeButton = 2; //B
+constexpr int kOuttakeButton = 5; // LB
+constexpr int kIntakeButton = 6; // RB
 constexpr int kRaiseArmButton = 4; // Y
 constexpr int kLowerArmButton = 3; // X
 
@@ -268,6 +268,18 @@ constexpr units::ampere_t kTurretPitchMotorCurrentLimit = 40_A;
 
 constexpr int kPitchLimitSwitchPort = 9;
 
+constexpr double kPitchMax = 7.0;
+constexpr double kPitchMin = 0.0;
+
+constexpr double kPitchP = 1.0;
+constexpr double kPitchI = 0.0;
+constexpr double kPitchD = 0.0;
+
+constexpr int kPitchMinOutput = -1.0;
+constexpr int kPitchMaxOutput = 1.0;
+
+constexpr int kFarSetpoint = 6.0;
+
 } // namespace TurretPitchConstants
 
 namespace IntakeConstants {
@@ -280,6 +292,16 @@ constexpr rev::spark::SparkLowLevel::MotorType kIntakeMotorType = rev::spark::Sp
 constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
 
 constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
+
+constexpr double kIntakeLowerLimit = 0.386;
+constexpr double kIntakeUpperLimit = 0.633;
+
+constexpr double kIntakeArmP = 1.75;
+constexpr double kIntakeArmI = 0.0;
+constexpr double kIntakeArmD = 0.0;
+
+constexpr double kMaxOutput = 1.0;
+constexpr double kMinOutput = -1.0;
 
 } // namespace IntakeConstants
 
@@ -316,14 +338,21 @@ constexpr double kMaxEstimationSpeed = 0.25; // mps
 
 
 inline constexpr std::string_view kCameraName{"Camera1"};
+inline constexpr std::string_view kCamera2Name{"Camera2"};
 inline const frc::Transform3d kRobotToCam{
-    frc::Translation3d{0.5_m, 0.0_m, 0.5_m},
-    frc::Rotation3d{0_rad, -30_deg, 0_rad}};
+    frc::Translation3d{-0.142_m, 0.21_m, 0.047_m},
+    frc::Rotation3d{14_deg, 0_rad, 150_deg}};
+
+inline const frc::Transform3d kRobotToCam2{
+    frc::Translation3d{-0.31_m, 0.34_m, 0.1_m},
+    frc::Rotation3d{14_deg, 0_deg, 180_deg}};
+//    frc::Rotation3d{0_rad, -20_deg, 0_rad}};
 inline const frc::AprilTagFieldLayout kTagLayout{
-   frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::kDefaultField)}; 
+   frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2026RebuiltAndyMark)}; 
 
 inline const Eigen::Matrix<double, 3, 1> kSingleTagStdDevs{4, 4, 8};
 inline const Eigen::Matrix<double, 3, 1> kMultiTagStdDevs{0.5, 0.5, 1};
+
 
 
 /**

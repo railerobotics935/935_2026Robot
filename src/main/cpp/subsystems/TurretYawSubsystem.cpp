@@ -19,9 +19,9 @@ TurretYawSubsystem::TurretYawSubsystem()
     .SmartCurrentLimit(TurretYawConstants::kTurretYawMotorCurrentLimit.value());
   m_turretYawSparkMax.Configure(turretYawSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 
-  auto nt_inst = nt::NetworkTableInstance::GetDefault();
-  auto nt_table = nt_inst.GetTable("Turret");
-  nte_turretYawAngle = nt_table->GetEntry("Turret/Turret Yaw");
+//  auto nt_inst = nt::NetworkTableInstance::GetDefault();
+//  auto nt_table = nt_inst.GetTable("Turret");
+//  nte_turretYawAngle = nt_table->GetEntry("Turret/Turret Yaw");
   //auto nt_table = nt_inst.GetTable("Shooter");
   //
   //nte_coralInShooter = nt_table->GetEntry("Shooter/Fuel in Shooter");
@@ -37,7 +37,7 @@ bool TurretYawSubsystem::TurretYawAtZero() {
 }
 
 void TurretYawSubsystem::Periodic() {
-  nte_turretYawAngle.SetDouble(m_turretYawEncoder.GetPosition());
+//  nte_turretYawAngle.SetDouble(m_turretYawEncoder.GetPosition());
   // Counterclockwise is NEGATIVE
 
   if (TurretYawAtZero())

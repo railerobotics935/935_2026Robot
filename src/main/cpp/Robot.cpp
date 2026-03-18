@@ -9,8 +9,8 @@
 #include <networktables/DoubleTopic.h>
 
 Robot::Robot() {
-  auto table = nt::NetworkTableInstance::GetDefault().GetTable("photonvision/Camera1");
-  nte_fps = table->GetEntry("fps");
+//  auto table = nt::NetworkTableInstance::GetDefault().GetTable("photonvision/Camera1");
+//  nte_fps = table->GetEntry("fps");
 }
 
 /**
@@ -57,11 +57,11 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
   }
 
-  auto nt_inst = nt::NetworkTableInstance::GetDefault();
-
-  auto nt_table = nt_inst.GetTable("photonvision");
-
-  nte_fps = nt_table->GetEntry("Camera1/fps");
+//  auto nt_inst = nt::NetworkTableInstance::GetDefault();
+//
+//  auto nt_table = nt_inst.GetTable("photonvision");
+//
+//  nte_fps = nt_table->GetEntry("Camera1/fps");
 }
 /**
  * This function is called periodically during operator control.

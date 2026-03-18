@@ -66,7 +66,7 @@ class TurretYawSubsystem : public frc2::SubsystemBase {
 
   //Network Table Entry
   //nt::NetworkTableEntry nte_coralInShooter;
-  nt::NetworkTableEntry nte_turretYawAngle;
+  //nt::NetworkTableEntry nte_turretYawAngle;
 
   // Limit switch is a digital input in the DIO port (digital input output)
   frc::DigitalInput m_YawLimitSwitch{TurretYawConstants::kYawLimitSwitchPort};

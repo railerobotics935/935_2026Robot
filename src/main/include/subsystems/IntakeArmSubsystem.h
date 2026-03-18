@@ -34,6 +34,10 @@ class IntakeArmSubsystem : public frc2::SubsystemBase {
    */
   double GetDirection();
 
+  double GetEncoderValue();
+
+  void SetArmPosition(double setAngle);
+
   /**
    * @return If light sensor has detected a coral
    */
@@ -48,6 +52,9 @@ class IntakeArmSubsystem : public frc2::SubsystemBase {
 
   // Motor Controllers
   rev::spark::SparkMax m_intakeArmSparkMax;
+
+
+  rev::spark::SparkClosedLoopController m_intakeArmPID = m_intakeArmSparkMax.GetClosedLoopController();
 
   // Encoder
   rev::spark::SparkAbsoluteEncoder m_intakeArmAbsoluteEncoder = m_intakeArmSparkMax.GetAbsoluteEncoder();

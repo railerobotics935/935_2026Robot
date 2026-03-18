@@ -35,7 +35,7 @@ ShooterSubsystem::ShooterSubsystem()
 
    m_leftShooterSparkMax.Configure(leftShooterSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 
-
+/*
 auto nt_inst = nt::NetworkTableInstance::GetDefault();
 auto nt_table = nt_inst.GetTable("Shooter");
 
@@ -44,6 +44,7 @@ nte_turret_power = nt_table->GetEntry("Turret Power");
 nte_turret_power.SetDouble(m_turret_power);
 
 turret_power_sub = nt_table->GetDoubleTopic("Turret Power").Subscribe(m_turret_power);
+*/
 
 //nte_coralInShooter = nt_table->GetEntry("Shooter/Fuel in Shooter");
 
@@ -55,15 +56,15 @@ turret_power_sub = nt_table->GetDoubleTopic("Turret Power").Subscribe(m_turret_p
 
 
 void ShooterSubsystem::Periodic() {
-  SetNewTurretPower();
+//  SetNewTurretPower();
 }
 
 void ShooterSubsystem::SetNewTurretPower() {
-  double newTurretPower = turret_power_sub.Get();
-
-  if(newTurretPower != m_turret_power) {
-    m_turret_power = newTurretPower;
-  }
+//  double newTurretPower = turret_power_sub.Get();
+//
+//  if(newTurretPower != m_turret_power) {
+//    m_turret_power = newTurretPower;
+//  }
 }
 
 

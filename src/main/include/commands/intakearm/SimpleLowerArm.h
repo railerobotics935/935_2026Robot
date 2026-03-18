@@ -20,6 +20,7 @@ public:
   explicit SimpleLowerArm(IntakeArmSubsystem* intakeArm);
 
   void Initialize() override;
+  void Execute() override;
   void End(bool interrupted) override;
   
 private:

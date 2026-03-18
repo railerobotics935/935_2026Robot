@@ -48,9 +48,9 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
  private:
  
-  nt::NetworkTableEntry nte_turret_power;
+//  nt::NetworkTableEntry nte_turret_power;
 
-  nt::DoubleSubscriber turret_power_sub;
+//  nt::DoubleSubscriber turret_power_sub;
 
   double m_turret_power = ShooterConstants::kTurretPower;
 

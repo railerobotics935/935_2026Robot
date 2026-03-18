@@ -25,10 +25,8 @@
 
 #include "Constants.h"
 
-
-#define MAX_NUM_TAGS 16
-
-
+//#define MAX_NUM_TAGS 16
+#ifndef CAMERAS 
 class ApriltagSensor : public frc2::SubsystemBase{
 public:
     /**
@@ -39,9 +37,7 @@ public:
    * @param cameraName The camera name from network tables
    * @param cameraPose3d The 3d position of the camera 
   */
-  ApriltagSensor (std::function<void(frc::Pose2d, units::second_t,
-                            Eigen::Matrix<double, 3, 1>)> estConsumer);
-
+  ApriltagSensor (std::function<void(frc::Pose2d, units::second_t)> estConsumer);
 
   photon::PhotonPipelineResult GetLatestResult();
 
@@ -50,85 +46,24 @@ public:
   Eigen::Matrix<double, 3, 1> GetEstimationStdDevs(frc::Pose2d estimatedPose);
 
   virtual void SimulationPeriodic(frc::Pose2d robotSimPose);
-
   void ResetSimPose(frc::Pose2d pose);
-
   frc::Field2d& GetSimDebugField();
 
-#if 0
-  /**
-   * @param tag The ID number for the apriltag wanted to identify
-   * @return The Field Relative Pose3d
-  */
-  frc::Pose3d GetFieldRelativePose(int tag);
-
-  /**
-   * @param tag the ID number for the apriltag wanted to identify
-   * @return An array of standard deviations scaled by the distance form the shooter
-  */
-  wpi::array<double, 3> GetStandardDeviations(int tag);
-
-  /**
-   * @return If the tag is tracked
-  */
-  bool TagIsTracked(int tag);
-
-  /**
-   * @param tag The ID number for the apriltag wanted to identify
-   * @return The Timestamp of a pose
-  */
-  units::second_t GetTimestamp(int tag);
-
-  /**
-   * Uses the timestamp information to deterime if the camera has new data compared to the last time ran
-   * 
-   * @return True if the camera has new data to process
-  */
- bool HasNewData(int tag);
-#endif
 
 private:
-  // Declare Network table entrys for apriltag pos
-  nt::NetworkTableEntry nte_status[MAX_NUM_TAGS];
-  nt::NetworkTableEntry nte_pose[MAX_NUM_TAGS];
-  nt::NetworkTableEntry nte_latency;
-  nt::NetworkTableEntry nte_finalLatency;
-  nt::NetworkTableEntry nte_estimatedRobotPose;
 
-  std::string m_cameraName;
-  frc::Pose3d m_cameraPose3d;
-  frc::Transform2d m_cameraTransform2d;
-  frc::Pose3d m_calculatedRobotPose;
-  
-  // Create path to deploy directory
-  fs::path deployDirectory{frc::filesystem::GetDeployDirectory() + "/2026-rebuilt.json"};
-
-  // Field layout to get apriltag pose
-  frc::AprilTagFieldLayout m_fieldLayout{deployDirectory.string()};
-  
-  frc::Timer m_timer{};
-  int64_t m_prevLatency = 0;
-
-  // Local variables resued in processing
-  std::vector<double> m_poseArr{};
-
-  frc::Translation3d m_rawTranslation{};
-  frc::Rotation3d m_rawRotation{};
-  frc::Transform3d m_rawPose{};
-
-  frc::Translation3d m_convertedTranslation{};
-  frc::Rotation3d m_correctedRotation{};
-
-  
   photon::PhotonPoseEstimator m_photonEstimator{CameraConstants::kTagLayout,
                                               CameraConstants::kRobotToCam};
-
+  photon::PhotonPoseEstimator m_photonEstimator2{CameraConstants::kTagLayout,
+                                              CameraConstants::kRobotToCam2};
   photon::PhotonCamera m_camera{CameraConstants::kCameraName};
-
-  photon::PhotonPipelineResult m_latestResult;
+  photon::PhotonCamera m_camera2{CameraConstants::kCamera2Name};
   std::unique_ptr<photon::VisionSystemSim> visionSim;
-  std::function<void(frc::Pose2d, units::second_t, Eigen::Matrix<double, 3, 1>)> estConsumer;
   std::unique_ptr<photon::SimCameraProperties> cameraProp;
   std::shared_ptr<photon::PhotonCameraSim> cameraSim;
 
+  photon::PhotonPipelineResult m_latestResult;
+  photon::PhotonPipelineResult m_latestResult2;
+  std::function<void(frc::Pose2d, units::second_t)> m_estConsumer;
 };
+#endif //CAMERAS

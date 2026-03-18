@@ -13,25 +13,27 @@ void SimpleMoveTurretPitch::Initialize() {
 #ifdef PRINTDEBUG
   std::cout << "SimpleMoveTurretPitch Initialized\r\n";
 #endif
+  m_currentTurretPitch = m_turretPitch->GetEncoderValue();
 }
 
 void SimpleMoveTurretPitch::Execute() {
 
-  double rotPower;
-
-  if (m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftTrigger) != 0.0 ) {
-    rotPower = -m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftTrigger);
+  if (m_operatorController->GetRawAxis(ControllerConstants::kOperatorRightYIndex) > 0.0 ) {
+    m_currentTurretPitch -= 0.05;
   }
-  
-  else if (m_operatorController->GetRawAxis(ControllerConstants::kOperatorRightTrigger) != 0.0 ) {
-    rotPower = m_operatorController->GetRawAxis(ControllerConstants::kOperatorRightTrigger);
+  else if (m_operatorController->GetRawAxis(ControllerConstants::kOperatorRightYIndex) < 0.0) {
+    m_currentTurretPitch += 0.05;
   }
 
-  else {
-    rotPower = 0.0;
+  if (m_currentTurretPitch > TurretPitchConstants::kPitchMax) {
+    m_currentTurretPitch = TurretPitchConstants::kPitchMax;
   }
 
-  m_turretPitch->SetTurretPitchMotorPower(rotPower);
+  if (m_currentTurretPitch < TurretPitchConstants::kPitchMin) {
+    m_currentTurretPitch = TurretPitchConstants::kPitchMin;
+  }
+
+  m_turretPitch->SetPitchPosition(m_currentTurretPitch);
   
 }
 

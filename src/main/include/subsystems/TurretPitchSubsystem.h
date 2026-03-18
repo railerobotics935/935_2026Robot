@@ -41,6 +41,10 @@ class TurretPitchSubsystem : public frc2::SubsystemBase {
 
   bool TurretPitchAtZero();
 
+  double GetEncoderValue();
+
+  void SetPitchPosition(double setAngle);
+
  private:
 
   void ConfigureSparkMax();
@@ -66,5 +70,5 @@ class TurretPitchSubsystem : public frc2::SubsystemBase {
 
   //Network Table Entry
   //nt::NetworkTableEntry nte_coralInShooter;
-  nt::NetworkTableEntry nte_turretPitchAngle;
+  //nt::NetworkTableEntry nte_turretPitchAngle;
 };

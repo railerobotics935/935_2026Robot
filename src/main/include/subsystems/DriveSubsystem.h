@@ -175,7 +175,12 @@ public:
   */
   void EstimatePoseWithApriltag();
 
-  void AddVisionMeasurement(const frc::Pose2d& visionMeasurement, units::second_t timestamp, const Eigen::Vector3d& stdDevs);
+  void AddVisionMeasurement(const frc::Pose2d& visionMeasurement,
+                            units::second_t timestamp);
+  void AddVisionMeasurement(const frc::Pose2d& visionMeasurement,
+                            units::second_t timestamp,
+                            const Eigen::Vector3d& stdDevs);
+  void ResetPose(const frc::Pose2d& pose, bool resetSimPose);
 
   /** 
    * Returns a pathplanner command to drive to the amp using pose estimation
@@ -257,6 +262,7 @@ frc::SwerveDriveKinematics<4> m_driveKinematics{
 
 private:
   // Declaring all of the network table entries
+  /*
   nt::NetworkTableEntry nte_fl_set_angle;
   nt::NetworkTableEntry nte_fr_set_angle;
   nt::NetworkTableEntry nte_bl_set_angle;
@@ -293,8 +299,9 @@ private:
   nt::NetworkTableEntry nte_debugTimeForPoseEstimation;
   nt::NetworkTableEntry nte_debugTimeForAddVistionData;
   nt::NetworkTableEntry nte_numberOfTagsAdded;
+  */
 
-  frc::Field2d m_field;
+  //frc::Field2d m_field;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 

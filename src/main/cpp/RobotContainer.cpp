@@ -6,8 +6,13 @@
 
 #include <frc2/command/button/JoystickButton.h>
 
+#include <pathplanner/lib/auto/NamedCommands.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+
 #include "commands/Autos.h"
 #include "commands/ExampleCommand.h"
+
+using namespace pathplanner;
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
@@ -19,13 +24,22 @@ RobotContainer::RobotContainer() {
   m_driveSubsystem.SetDefaultCommand(std::move(m_driveWithController));
   #ifndef TESTBOARD
   m_turretPitchSubsystem.SetDefaultCommand(std::move(m_simpleMoveTurretPitch));
-  m_stagerSubsystem.SetDefaultCommand(std::move(m_stagerStop));
-  m_shooterSubsystem.SetDefaultCommand(std::move(m_stopShooter));
+  m_stagerSubsystem.SetDefaultCommand(std::move(m_simpleStage));
+  m_shooterSubsystem.SetDefaultCommand(std::move(m_simpleShoot));
   m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake)); 
   #endif //testboard
   m_turretYawSubsystem.SetDefaultCommand(std::move(m_simpleRotateTurretYaw));
   m_intakeArmSubsystem.SetDefaultCommand(std::move(m_simpleStopArm));
-  m_agitatorSubsystem.SetDefaultCommand(std::move(m_agitatorStop));
+
+  NamedCommands::registerCommand("Extend Intake", std::move(m_simpleLowerArm).ToPtr());
+  NamedCommands::registerCommand("Retract Intake", std::move(m_simpleRaiseArm).ToPtr());
+  NamedCommands::registerCommand("Intake Fuel", std::move(m_simpleIntake).ToPtr());
+  NamedCommands::registerCommand("Outtake Fuel", std::move(m_simpleOuttake).ToPtr());
+  NamedCommands::registerCommand("Shoot Fuel", std::move(m_simpleShoot).ToPtr());
+  NamedCommands::registerCommand("Stage Fuel", std::move(m_simpleStage).ToPtr());
+
+
+  frc::Shuffleboard::GetTab("Autonomous").Add(m_autoChooser);
 
 }
 
@@ -36,21 +50,17 @@ void RobotContainer::ConfigureBindings() {
    resetButton.OnTrue(frc2::cmd::RunOnce([&] {m_driveSubsystem.ZeroHeading();}, {}));
   
  #ifndef TESTBOARD
- frc2::JoystickButton shootButton(&m_operatorController, ControllerConstants::kShootButton);
- frc2::JoystickButton stagerIntakeButton(&m_operatorController, ControllerConstants::kStagerIntakeButton);
  frc2::JoystickButton intakeButton(&m_operatorController, ControllerConstants::kIntakeButton);
  frc2::JoystickButton outtakeButton(&m_operatorController, ControllerConstants::kOuttakeButton);
  frc2::JoystickButton lowerArmButton(&m_operatorController, ControllerConstants::kLowerArmButton);
  frc2::JoystickButton raiseArmButton(&m_operatorController, ControllerConstants::kRaiseArmButton);
 
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
- shootButton.WhileTrue(SimpleShoot{&m_shooterSubsystem}.ToPtr());
- stagerIntakeButton.WhileTrue(SimpleStagerIntake{&m_stagerSubsystem, &m_agitatorSubsystem}.ToPtr());
  intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem}.ToPtr());
  outtakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem}.ToPtr());
  #endif //Testboard
- lowerArmButton.WhileTrue(SimpleLowerArm{&m_intakeArmSubsystem}.ToPtr());
- raiseArmButton.WhileTrue(SimpleRaiseArm{&m_intakeArmSubsystem}.ToPtr());
+ lowerArmButton.OnTrue(SimpleLowerArm{&m_intakeArmSubsystem}.ToPtr());
+ raiseArmButton.OnTrue(SimpleRaiseArm{&m_intakeArmSubsystem}.ToPtr());
  
 
 

@@ -6,6 +6,7 @@
 
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
+#include <frc/smartdashboard/SendableChooser.h>
 
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
@@ -73,6 +74,8 @@ class RobotContainer {
 
   void ConfigureBindings();
 
+  frc::SendableChooser<std::string> m_autoChooser;
+
   // Commands
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
   SimpleRotateTurretYaw m_simpleRotateTurretYaw{&m_turretYawSubsystem, &m_operatorController};
@@ -80,9 +83,15 @@ class RobotContainer {
   #ifndef TESTBOARD
   StagerStop m_stagerStop{&m_stagerSubsystem, &m_operatorController};
   StopIntake m_stopIntake{&m_intakeSubsystem, &m_operatorController};
+  SimpleIntake m_simpleIntake{&m_intakeSubsystem};
+  SimpleOuttake m_simpleOuttake{&m_intakeSubsystem};
   StopShooter m_stopShooter{&m_shooterSubsystem, &m_operatorController};
+  SimpleShoot m_simpleShoot{&m_shooterSubsystem, &m_operatorController};
   #endif //testboard
   SimpleStopArm m_simpleStopArm{&m_intakeArmSubsystem};
+  SimpleLowerArm m_simpleLowerArm{&m_intakeArmSubsystem};
+  SimpleRaiseArm m_simpleRaiseArm{&m_intakeArmSubsystem};
   AgitatorStop m_agitatorStop{&m_agitatorSubsystem};
+  SimpleStagerIntake m_simpleStage{&m_stagerSubsystem, &m_agitatorSubsystem, &m_operatorController};
 
 };

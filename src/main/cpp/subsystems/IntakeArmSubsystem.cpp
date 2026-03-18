@@ -21,6 +21,11 @@ IntakeArmSubsystem::IntakeArmSubsystem()
   .SetIdleMode(IntakeConstants::kIntakeMotorIdleMode)
   .SmartCurrentLimit(IntakeConstants::kIntakeMotorCurrentLimit.value());
 
+  intakeArmSparkMaxConfig.closedLoop
+  .Pid(IntakeConstants::kIntakeArmP, IntakeConstants::kIntakeArmI, IntakeConstants::kIntakeArmD)
+  .OutputRange(IntakeConstants::kMinOutput, IntakeConstants::kMaxOutput)
+  .SetFeedbackSensor(rev::spark::FeedbackSensor::kAbsoluteEncoder);
+
   m_intakeArmSparkMax.Configure(intakeArmSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 
 auto nt_inst = nt::NetworkTableInstance::GetDefault();
@@ -52,3 +57,18 @@ double IntakeArmSubsystem::GetDirection() {
   return m_intakeArmSparkMax.Get();
 }
 #endif //testboard
+
+double IntakeArmSubsystem::GetEncoderValue() {
+  return m_intakeArmAbsoluteEncoder.GetPosition();
+}
+
+void IntakeArmSubsystem::SetArmPosition(double setAngle) {
+  if(setAngle > IntakeConstants::kIntakeUpperLimit) {
+    setAngle = IntakeConstants::kIntakeUpperLimit;
+  }
+  if(setAngle < IntakeConstants::kIntakeLowerLimit) {
+    setAngle = IntakeConstants::kIntakeLowerLimit;
+  }
+
+  m_intakeArmPID.SetReference(setAngle, rev::spark::SparkLowLevel::ControlType::kPosition);
+}

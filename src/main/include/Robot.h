@@ -30,6 +30,6 @@ class Robot : public frc::TimedRobot {
   // doesn't have undefined behavior and potentially crash.
   std::optional<frc2::CommandPtr> m_autonomousCommand;
   int fps;
-  nt::NetworkTableEntry nte_fps;
+//  nt::NetworkTableEntry nte_fps;
   RobotContainer m_container;
 };

@@ -26,4 +26,5 @@ public:
 private:
   TurretPitchSubsystem* m_turretPitch;
   frc::XboxController* m_operatorController;
+  double m_currentTurretPitch;
 };

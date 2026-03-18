@@ -93,6 +93,7 @@ AutoBuilder::configure(
   auto nt_inst = nt::NetworkTableInstance::GetDefault();
   auto nt_table = nt_inst.GetTable("datatable");
 
+  /*
   nte_fl_set_angle = nt_table->GetEntry("Swerve Drive/Front Left/Set Angle");
   nte_fr_set_angle = nt_table->GetEntry("Swerve Drive/Front Right/Set Angle");
   nte_bl_set_angle = nt_table->GetEntry("Swerve Drive/Back Left/Set Angle");
@@ -127,14 +128,14 @@ AutoBuilder::configure(
   nte_debugTimeForPoseEstimation = nt_table->GetEntry("Debug Values/Pose Estimation");
   nte_debugTimeForAddVistionData = nt_table->GetEntry("Debug Values/Add Vision Data");  
   nte_numberOfTagsAdded = nt_table->GetEntry("Debug Values/Number Of Tags Processed");
-
+  */
   // nte_kp.SetDouble(2.5);
   // nte_ki.SetDouble(0.002);
   // nte_kd.SetDouble(0.05);
 
   
   // Send Field to shuffleboard
-  frc::Shuffleboard::GetTab("Field").Add(m_field);
+  //frc::Shuffleboard::GetTab("Field").Add(m_field);
 
   m_robotAngleController.EnableContinuousInput(0, (std::numbers::pi * 2));
 
@@ -164,7 +165,7 @@ void DriveSubsystem::Periodic()
 //  if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)
 //    EstimatePoseWithApriltag();
   
-  UpdateNTE();
+  //UpdateNTE();
 
 //  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
 
@@ -175,6 +176,7 @@ void DriveSubsystem::Periodic()
 
 void DriveSubsystem::UpdateNTE()
 {
+  /*
   nte_fl_real_angle.SetDouble((double)m_frontLeft.GetState().angle.Radians());
   nte_fr_real_angle.SetDouble((double)m_frontRight.GetState().angle.Radians());
   nte_bl_real_angle.SetDouble((double)m_backLeft.GetState().angle.Radians());
@@ -192,9 +194,9 @@ void DriveSubsystem::UpdateNTE()
   //nte_fr_raw_encoder_voltage.SetDouble(m_frontRight.GetEncoderVoltage());
   //nte_bl_raw_encoder_voltage.SetDouble(m_backLeft.GetEncoderVoltage());
   //nte_br_raw_encoder_voltage.SetDouble(m_backRight.GetEncoderVoltage());
-
+  */
   // Set robot position to shuffleboard field
-  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
+  //m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
 }
 
 void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
@@ -281,6 +283,7 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
   m_backRight.SetDesiredState(br);
 
   // Network table entries
+  /*
   nte_fl_set_angle.SetDouble((double)fl.angle.Radians());
   nte_fr_set_angle.SetDouble((double)fr.angle.Radians());
   nte_bl_set_angle.SetDouble((double)bl.angle.Radians());
@@ -289,6 +292,7 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
   nte_fr_set_speed.SetDouble((double)fr.speed);
   nte_bl_set_speed.SetDouble((double)bl.speed);
   nte_br_set_speed.SetDouble((double)br.speed);
+  */
 }
 
 void DriveSubsystem::DriveFacingGoal(units::meters_per_second_t xSpeed,

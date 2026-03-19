@@ -81,6 +81,11 @@ class RobotContainer {
 
   frc::SendableChooser<std::string> m_autoChooser;
 
+  std::string m_oneCycle = "OneCycle";
+  std::string m_centerAuto = "Center Auto";
+  std::string m_leftAuto = "Left Auto";
+  std::string m_rightAuto = "Right Auto";
+
   // Commands
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
   SimpleRotateTurretYaw m_simpleRotateTurretYaw{&m_turretYawSubsystem, &m_operatorController};

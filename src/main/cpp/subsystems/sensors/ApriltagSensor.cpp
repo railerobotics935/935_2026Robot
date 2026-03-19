@@ -8,7 +8,7 @@
 
 #include "subsystems/sensors/ApriltagSensor.h"
 
-#ifndef CAMERAS
+#ifdef CAMERAS
 ApriltagSensor::ApriltagSensor(std::function<void(frc::Pose2d, units::second_t)> estConsumer)
                              : m_estConsumer{estConsumer}
 {

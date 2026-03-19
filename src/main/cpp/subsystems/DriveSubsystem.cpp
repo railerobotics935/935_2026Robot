@@ -61,7 +61,7 @@ DriveSubsystem::DriveSubsystem()
                 {0.2, 0.2, 0.05}} // Standard Deviation of vision pose esitmation
 {
 
-#if 0
+//#if 0
 RobotConfig config = RobotConfig::fromGUISettings();
 
 AutoBuilder::configure(
@@ -87,11 +87,11 @@ AutoBuilder::configure(
       },
       this // Reference to this subsystem to set requirements
   );
-  #endif
+  //#endif
 
   // Initialize shuffleboard communication
-  auto nt_inst = nt::NetworkTableInstance::GetDefault();
-  auto nt_table = nt_inst.GetTable("datatable");
+  //auto nt_inst = nt::NetworkTableInstance::GetDefault();
+  //auto nt_table = nt_inst.GetTable("datatable");
 
   /*
   nte_fl_set_angle = nt_table->GetEntry("Swerve Drive/Front Left/Set Angle");
@@ -135,7 +135,7 @@ AutoBuilder::configure(
 
   
   // Send Field to shuffleboard
-  //frc::Shuffleboard::GetTab("Field").Add(m_field);
+  frc::Shuffleboard::GetTab("Field").Add(m_field);
 
   m_robotAngleController.EnableContinuousInput(0, (std::numbers::pi * 2));
 
@@ -153,21 +153,21 @@ bool DriveSubsystem::InRedAlliance() {
 void DriveSubsystem::Periodic()
 {
   // Implementation of subsystem periodic method goes here.
-  m_odometry.Update(-m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
-                    {m_frontLeft.GetPosition(), m_frontRight.GetPosition(), 
-                    m_backLeft.GetPosition(), m_backRight.GetPosition()});
+//  m_odometry.Update(-m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw),
+//                    {m_frontLeft.GetPosition(), m_frontRight.GetPosition(), 
+//                    m_backLeft.GetPosition(), m_backRight.GetPosition()});
 
   m_poseEstimator.Update(-m_gyro.GetAngle(frc::ADIS16470_IMU::kYaw), 
                     {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
                     m_backLeft.GetPosition(), m_backRight.GetPosition()});
 
   // set odometry relative to the apriltag
-//  if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)
-//    EstimatePoseWithApriltag();
-  
+  //if (GetLinearRobotSpeed() < 1.0 && GetTurnRate() < 20.0)
+  //  EstimatePoseWithApriltag();
+
   //UpdateNTE();
 
-//  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
+  m_field.SetRobotPose(m_poseEstimator.GetEstimatedPosition());
 
   //m_robotAngleController.SetP(nte_kp.GetDouble(4.5));
   //m_robotAngleController.SetI(nte_ki.GetDouble(0.002));
@@ -497,6 +497,11 @@ void DriveSubsystem::ResetOdometry(frc::Pose2d pose) {
       {m_frontLeft.GetPosition(), m_frontRight.GetPosition(),
        m_backLeft.GetPosition(), m_backRight.GetPosition()},
       pose);
+}
+
+void DriveSubsystem::AddVisionMeasurement(const frc::Pose2d& visionMeasurement,
+                                       units::second_t timestamp) {
+ m_poseEstimator.AddVisionMeasurement(visionMeasurement, timestamp);
 }
 
 void DriveSubsystem::AddVisionMeasurement(const frc::Pose2d& visionMeasurement,

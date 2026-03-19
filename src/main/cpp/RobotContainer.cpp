@@ -34,6 +34,7 @@ RobotContainer::RobotContainer() {
   NamedCommands::registerCommand("Extend Intake", std::move(m_simpleLowerArm).ToPtr());
   NamedCommands::registerCommand("Retract Intake", std::move(m_simpleRaiseArm).ToPtr());
   NamedCommands::registerCommand("Intake Fuel", std::move(m_simpleIntake).ToPtr());
+  NamedCommands::registerCommand("Stop Intake", std::move(m_stopIntake).ToPtr());
   NamedCommands::registerCommand("Outtake Fuel", std::move(m_simpleOuttake).ToPtr());
   NamedCommands::registerCommand("Shoot Fuel", std::move(m_simpleShoot).ToPtr());
   NamedCommands::registerCommand("Stage Fuel", std::move(m_simpleStage).ToPtr());
@@ -59,8 +60,8 @@ void RobotContainer::ConfigureBindings() {
  intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem}.ToPtr());
  outtakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem}.ToPtr());
  #endif //Testboard
- lowerArmButton.OnTrue(SimpleLowerArm{&m_intakeArmSubsystem}.ToPtr());
- raiseArmButton.OnTrue(SimpleRaiseArm{&m_intakeArmSubsystem}.ToPtr());
+ lowerArmButton.WhileTrue(SimpleLowerArm{&m_intakeArmSubsystem}.ToPtr());
+ raiseArmButton.WhileTrue(SimpleRaiseArm{&m_intakeArmSubsystem}.ToPtr());
  
 
 

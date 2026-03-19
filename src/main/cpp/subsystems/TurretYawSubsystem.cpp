@@ -88,4 +88,7 @@ double TurretYawSubsystem::GetDirection() {
   return m_turretYawSparkMax.Get();
 }
 
+double TurretYawSubsystem::GetCurrentYaw() {
+  return m_turretYawEncoder.GetPosition() - m_turretMaxRotation;
+}
 //#endif //testboard

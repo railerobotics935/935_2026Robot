@@ -43,6 +43,7 @@
 #define BURNINTAKEARMSPARKMAX
 #define BURNAGITATORSPARKMAX
 #define PRINTDEBUG
+//#define CAMERAS
 
 namespace OperatorConstants {
 
@@ -124,7 +125,7 @@ constexpr bool kTurningEncoderInverted = true;
 // Calculations required for driving motor conversion factors and feed forward
 constexpr double kDrivingMotorFreeSpeedRps =
     5676.0 / 60;  // NEO free speed is 5676 RPM
-constexpr units::meter_t kWheelDiameter = 0.0953_m;
+constexpr units::meter_t kWheelDiameter = 0.0762_m;
 constexpr units::meter_t kWheelCircumference =
     kWheelDiameter * std::numbers::pi;
 
@@ -296,9 +297,9 @@ constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 constexpr double kIntakeLowerLimit = 0.386;
 constexpr double kIntakeUpperLimit = 0.633;
 
-constexpr double kIntakeArmP = 1.75;
+constexpr double kIntakeArmP = 10.0;
 constexpr double kIntakeArmI = 0.0;
-constexpr double kIntakeArmD = 0.0;
+constexpr double kIntakeArmD = 0.01;
 
 constexpr double kMaxOutput = 1.0;
 constexpr double kMinOutput = -1.0;
@@ -329,6 +330,7 @@ constexpr double kPitchD = 0.0;
 constexpr int counterMax = 250;
 constexpr int yawCounterMax = 50;
 
+#ifdef CAMERAS
 // Min and Max standard deviations for the apriltag detetion 
 constexpr double kMinStandardDeviation = 0.2;
 constexpr double kMaxStandardDeviation = 3.0;
@@ -377,4 +379,6 @@ namespace OakDLiteCamera {
     const frc::Pose3d kPose3d{kTranlation3d, kRotation3d};
 } // namespace OakDLiteCamera
 
+#endif
 } // namespace CameraConstants
+

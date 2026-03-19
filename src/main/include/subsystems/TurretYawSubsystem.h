@@ -41,6 +41,8 @@ class TurretYawSubsystem : public frc2::SubsystemBase {
 
   bool TurretYawAtZero();
 
+  double GetCurrentYaw();
+
 
  private:
 

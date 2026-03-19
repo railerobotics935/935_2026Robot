@@ -60,14 +60,12 @@ class IntakeArmSubsystem : public frc2::SubsystemBase {
   rev::spark::SparkAbsoluteEncoder m_intakeArmAbsoluteEncoder = m_intakeArmSparkMax.GetAbsoluteEncoder();
 
   //Network Table Entry
-  nt::NetworkTableEntry nte_armEncoder;
-
-  // Light Sensor is a digital input in the DIO port (digital input output)
-  //frc::DigitalInput m_lightSensor{IntakeConstants::kLightSensorID};
+  //nt::NetworkTableEntry nte_armEncoder;
 
 
+  // defaults based on turret placed at zero point when powered off
 
-  //nt::NetworkTableEntry nte_coralInIntake;
+
 };
 
 #endif //TESTBOARD

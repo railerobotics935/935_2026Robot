@@ -26,7 +26,7 @@
 #include "Constants.h"
 
 //#define MAX_NUM_TAGS 16
-#ifndef CAMERAS 
+#ifdef CAMERAS 
 class ApriltagSensor : public frc2::SubsystemBase{
 public:
     /**

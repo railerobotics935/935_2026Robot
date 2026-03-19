@@ -69,7 +69,12 @@ class RobotContainer {
   TurretYawSubsystem m_turretYawSubsystem;
   IntakeArmSubsystem m_intakeArmSubsystem;
   AgitatorSubsystem m_agitatorSubsystem;
+  #ifdef CAMERAS
+  ApriltagSensor m_apriltagSensor{[=, this](frc::Pose2d pose, units::second_t timestamp) {
+    m_driveSubsystem.AddVisionMeasurement(pose, timestamp);
   
+  }};
+  #endif
 
 
   void ConfigureBindings();

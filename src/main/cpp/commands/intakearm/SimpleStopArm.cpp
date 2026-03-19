@@ -13,6 +13,9 @@ SimpleStopArm::SimpleStopArm(IntakeArmSubsystem *intakeArm) : m_intakeArm{intake
 void SimpleStopArm::Initialize() {
 #ifdef PRINTDEBUG
   std::cout << "SimpleLowerArm Initialized\r\n";
+  
+   
+
 #endif
 }
 
@@ -20,6 +23,7 @@ void SimpleStopArm::Initialize() {
 void SimpleStopArm::End(bool interrupted) {
 #ifdef PRINTDEBUG
   std::cout << "SimpleLowerArm Ended\r\n";
+
 #endif
 }
 

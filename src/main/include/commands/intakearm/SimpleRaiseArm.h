@@ -25,5 +25,6 @@ public:
   
 private:
   IntakeArmSubsystem* m_intakeArm;
+  double m_currentIntakeArmHeight;
 };
 #endif //TESTBOARD

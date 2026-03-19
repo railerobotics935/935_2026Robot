@@ -15,18 +15,20 @@ void SimpleLowerArm::Initialize() {
   std::cout << "SimpleLowerArm Initialized\r\n";
 #endif
 
-  m_intakeArm->SetArmPosition(IntakeConstants::kIntakeLowerLimit);
+ m_currentArmPosition = m_intakeArm->GetEncoderValue();
+ 
+
 
 }
 
 void SimpleLowerArm::Execute() {
-//  m_currentArmPosition -= 0.003;
-//
-//  if(m_currentArmPosition < IntakeConstants::kIntakeLowerLimit) {
-//    m_currentArmPosition = IntakeConstants::kIntakeLowerLimit;
-//  }
-//
-//  m_intakeArm->SetArmPosition(m_currentArmPosition);
+  m_currentArmPosition -= 0.003;
+
+  if(m_currentArmPosition < IntakeConstants::kIntakeLowerLimit) {
+    m_currentArmPosition = IntakeConstants::kIntakeLowerLimit;
+  }
+
+ m_intakeArm->SetArmPosition(m_currentArmPosition);
 }
 
 void SimpleLowerArm::End(bool interrupted) {

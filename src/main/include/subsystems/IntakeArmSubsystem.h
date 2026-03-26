@@ -11,6 +11,7 @@
 #include <rev/SparkMax.h>
 #include <frc/DigitalInput.h>
 #include <iostream>
+#include <frc/filter/SlewRateLimiter.h>
 #include <Constants.h>
 
 #ifndef TESTBOARD
@@ -59,8 +60,10 @@ class IntakeArmSubsystem : public frc2::SubsystemBase {
   // Encoder
   rev::spark::SparkAbsoluteEncoder m_intakeArmAbsoluteEncoder = m_intakeArmSparkMax.GetAbsoluteEncoder();
 
+  frc::SlewRateLimiter<units::volts> filter {(units::volt_t)16.0 / 1_s};
+
   //Network Table Entry
-  //nt::NetworkTableEntry nte_armEncoder;
+  nt::NetworkTableEntry nte_armEncoder;
 
 
   // defaults based on turret placed at zero point when powered off

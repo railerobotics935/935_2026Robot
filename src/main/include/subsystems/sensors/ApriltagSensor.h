@@ -65,5 +65,7 @@ private:
   photon::PhotonPipelineResult m_latestResult;
   photon::PhotonPipelineResult m_latestResult2;
   std::function<void(frc::Pose2d, units::second_t)> m_estConsumer;
+
+  uint8_t coutCounter;
 };
 #endif //CAMERAS

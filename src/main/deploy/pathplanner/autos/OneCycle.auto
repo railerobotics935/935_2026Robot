@@ -11,21 +11,28 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Stage Fuel"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot Fuel"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Simple Auto Agitate"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Simple Auto Shoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Simple Auto Stage"
+                }
+              }
+            ]
           }
         }
       ]

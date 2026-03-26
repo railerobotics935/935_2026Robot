@@ -15,8 +15,8 @@ void SimpleLowerArm::Initialize() {
   std::cout << "SimpleLowerArm Initialized\r\n";
 #endif
 
- m_currentArmPosition = m_intakeArm->GetEncoderValue();
- 
+  m_currentArmPosition = m_intakeArm->GetEncoderValue();
+//  m_intakeArm->SetIntakeArmMotorPower(-0.5);
 
 
 }
@@ -28,13 +28,15 @@ void SimpleLowerArm::Execute() {
     m_currentArmPosition = IntakeConstants::kIntakeLowerLimit;
   }
 
- m_intakeArm->SetArmPosition(m_currentArmPosition);
+  m_intakeArm->SetArmPosition(m_currentArmPosition);
+
 }
 
 void SimpleLowerArm::End(bool interrupted) {
 #ifdef PRINTDEBUG
   std::cout << "SimpleLowerArm Ended\r\n";
 #endif
+//  m_intakeArm->SetIntakeArmMotorPower(0.0);
 }
 
 #endif // TESTBOARD

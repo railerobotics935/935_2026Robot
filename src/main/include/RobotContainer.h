@@ -34,6 +34,12 @@
 #include "commands/intakearm/SimpleStopArm.h"
 #include "commands/stager/AgitatorStop.h"
 
+#include "commands/autocommands/SimpleAutoShoot.h"
+#include "commands/autocommands/SimpleAutoStage.h"
+#include "commands/autocommands/SimpleAutoAgitate.h"
+
+
+
 #include <frc2/command/Commands.h>
 
 /**
@@ -102,6 +108,12 @@ class RobotContainer {
   SimpleLowerArm m_simpleLowerArm{&m_intakeArmSubsystem};
   SimpleRaiseArm m_simpleRaiseArm{&m_intakeArmSubsystem};
   AgitatorStop m_agitatorStop{&m_agitatorSubsystem};
-  SimpleStagerIntake m_simpleStage{&m_stagerSubsystem, &m_agitatorSubsystem, &m_operatorController};
+  SimpleStagerIntake m_simpleStageIntake{&m_stagerSubsystem, &m_agitatorSubsystem, &m_operatorController};
+
+
+  SimpleAutoShoot m_simpleAutoShoot{&m_shooterSubsystem};
+  SimpleAutoStage m_simpleAutoStage{&m_stagerSubsystem};
+  SimpleAutoAgitate m_simpleAutoAgitate{&m_agitatorSubsystem};
+
 
 };

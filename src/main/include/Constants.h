@@ -129,8 +129,8 @@ constexpr units::meter_t kWheelDiameter = 0.0762_m;
 constexpr units::meter_t kWheelCircumference =
     kWheelDiameter * std::numbers::pi;
 
-// 6.75:1 Gear Ratio for Driving Motors
-constexpr double kDrivingMotorReduction = 6.75;
+// 4.71:1 Gear Ratio for Driving Motors
+constexpr double kDrivingMotorReduction = 4.71;
 constexpr double kDriveWheelFreeSpeedRps =
     (kDrivingMotorFreeSpeedRps * kWheelCircumference.value()) /
     kDrivingMotorReduction;
@@ -154,7 +154,7 @@ constexpr units::radian_t kTurningEncoderPositionPIDMaxInput =
 constexpr double kDrivingP = 0.0;
 constexpr double kDrivingI = 0.0;
 constexpr double kDrivingD = 0.0;
-constexpr double kDrivingFF = (4 / kDriveWheelFreeSpeedRps);
+constexpr double kDrivingFF = (6 / kDriveWheelFreeSpeedRps);
 constexpr double kDrivingMinOutput = -1;
 constexpr double kDrivingMaxOutput = 1;
 
@@ -215,6 +215,7 @@ constexpr int kOuttakeButton = 5; // LB
 constexpr int kIntakeButton = 6; // RB
 constexpr int kRaiseArmButton = 4; // Y
 constexpr int kLowerArmButton = 3; // X
+
 
 }  // namespace Controller Constants
 
@@ -294,8 +295,8 @@ constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark
 
 constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 
-constexpr double kIntakeLowerLimit = 0.386;
-constexpr double kIntakeUpperLimit = 0.633;
+constexpr double kIntakeLowerLimit = 0.720;
+constexpr double kIntakeUpperLimit = 0.951;
 
 constexpr double kIntakeArmP = 10.0;
 constexpr double kIntakeArmI = 0.0;
@@ -346,8 +347,8 @@ inline const frc::Transform3d kRobotToCam{
     frc::Rotation3d{14_deg, 0_rad, 150_deg}};
 
 inline const frc::Transform3d kRobotToCam2{
-    frc::Translation3d{-0.31_m, 0.34_m, 0.1_m},
-    frc::Rotation3d{14_deg, 0_deg, 180_deg}};
+    frc::Translation3d{0.2794_m, -0.3302_m, 0.43815_m},
+    frc::Rotation3d{0_deg, -14_deg, -20_deg}};
 //    frc::Rotation3d{0_rad, -20_deg, 0_rad}};
 inline const frc::AprilTagFieldLayout kTagLayout{
    frc::AprilTagFieldLayout::LoadField(frc::AprilTagField::k2026RebuiltAndyMark)}; 

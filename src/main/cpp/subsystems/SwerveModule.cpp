@@ -45,7 +45,7 @@ void SwerveModule::ConfigureSparkMax() {
   .Inverted(true)
   .SmartCurrentLimit(kDrivingMotorCurrentLimit.value());
 
-  driveSparkMaxConfig.absoluteEncoder
+  driveSparkMaxConfig.encoder
   .PositionConversionFactor(kDrivingEncoderPositionFactor)
   .VelocityConversionFactor(kDrivingEncoderVelocityFactor);
 

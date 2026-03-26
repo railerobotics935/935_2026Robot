@@ -32,7 +32,7 @@ ApriltagSensor::ApriltagSensor(std::function<void(frc::Pose2d, units::second_t)>
   }
 
 //  std::cout << "ApriltagSensor Constructor" << std::endl;
-
+  coutCounter = 0;
 }
 
 void ApriltagSensor::Periodic () {
@@ -59,7 +59,17 @@ void ApriltagSensor::Periodic () {
 
     if (visionEst) {
       m_estConsumer(visionEst->estimatedPose.ToPose2d(), visionEst->timestamp);
-//      std::cout << "Estimated X: " << (double)visionEst->estimatedPose.ToPose2d().X() << " Estimated Y: " << (double)visionEst->estimatedPose.ToPose2d().Y() << std::endl;
+
+      if (coutCounter > 50)
+      {
+        std::cout << "3D Estimated X: " << (double)visionEst->estimatedPose.X() << " Y: " << (double)visionEst->estimatedPose.Y() << " Z: " << (double)visionEst->estimatedPose.Z() << std::endl;
+        std::cout << "2D Estimated X: " << (double)visionEst->estimatedPose.ToPose2d().X() << " Y: " << (double)visionEst->estimatedPose.ToPose2d().Y() << std::endl;
+        coutCounter = 0;
+      }
+      else
+      {
+        coutCounter++;
+      }
     }
   }
 

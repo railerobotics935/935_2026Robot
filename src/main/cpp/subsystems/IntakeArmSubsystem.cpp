@@ -28,10 +28,10 @@ IntakeArmSubsystem::IntakeArmSubsystem()
 
   m_intakeArmSparkMax.Configure(intakeArmSparkMaxConfig, rev::spark::SparkMax::ResetMode::kResetSafeParameters, rev::spark::SparkMax::PersistMode::kPersistParameters);
 
-//auto nt_inst = nt::NetworkTableInstance::GetDefault();
-//auto nt_table = nt_inst.GetTable("Intake");
+auto nt_inst = nt::NetworkTableInstance::GetDefault();
+auto nt_table = nt_inst.GetTable("Intake");
 
-  //nte_armEncoder = nt_table->GetEntry("Arm/Encoder");
+  nte_armEncoder = nt_table->GetEntry("Arm/Encoder");
 //
 //nte_coralInIntake = nt_table->GetEntry("Intake/Fuel in Intake");
 
@@ -43,13 +43,13 @@ IntakeArmSubsystem::IntakeArmSubsystem()
 
 
 void IntakeArmSubsystem::Periodic() {
-  //,nte_armEncoder.SetDouble(m_intakeArmAbsoluteEncoder.GetPosition());
+  nte_armEncoder.SetDouble(m_intakeArmAbsoluteEncoder.GetPosition());
 }
 
 
 void IntakeArmSubsystem::SetIntakeArmMotorPower(double power) {
   // Sets the motor's power (between -1.0 and 1.0). 
-  m_intakeArmSparkMax.Set(power);    
+m_intakeArmSparkMax.SetVoltage(filter.Calculate((units::volt_t)power * 5.0));  
 
 }
 

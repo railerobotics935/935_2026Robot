@@ -7,10 +7,12 @@
 #include <networktables/NetworkTableInstance.h>
 #include <networktables/NetworkTable.h>
 #include <networktables/DoubleTopic.h>
+#include "rev/util/StatusLogger.h"
 
 Robot::Robot() {
 //  auto table = nt::NetworkTableInstance::GetDefault().GetTable("photonvision/Camera1");
 //  nte_fps = table->GetEntry("fps");
+  StatusLogger::DisableAutoLogging();
 }
 
 /**

@@ -8,11 +8,20 @@
 #include <networktables/NetworkTable.h>
 #include <networktables/DoubleTopic.h>
 #include "rev/util/StatusLogger.h"
+#include <ctre/phoenix6/SignalLogger.hpp>
+#include <frc/DataLogManager.h>
+
 
 Robot::Robot() {
 //  auto table = nt::NetworkTableInstance::GetDefault().GetTable("photonvision/Camera1");
 //  nte_fps = table->GetEntry("fps");
   StatusLogger::DisableAutoLogging();
+  ctre::phoenix6::SignalLogger::EnableAutoLogging(false);
+  //frc::DataLogManager::Stop();   warning: this doesn't work, causes reboots
+  frc::DataLogManager::LogNetworkTables(false);
+  
+//  std::cout << "wpi logs to: " << frc::DataLogManager::GetLogDir() << std::endl;
+  
 }
 
 /**
@@ -58,6 +67,7 @@ void Robot::TeleopInit() {
   if (m_autonomousCommand) {
     m_autonomousCommand->Cancel();
   }
+
 
 //  auto nt_inst = nt::NetworkTableInstance::GetDefault();
 //

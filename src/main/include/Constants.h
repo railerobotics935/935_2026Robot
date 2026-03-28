@@ -7,6 +7,7 @@
 #include <numbers>
 
 #include <frc/geometry/Translation2d.h>
+#include <frc/geometry/Pose2d.h>
 #include <frc/kinematics/SwerveDriveKinematics.h>
 #include <frc/trajectory/TrapezoidProfile.h>
 #include <units/acceleration.h>
@@ -43,7 +44,7 @@
 #define BURNINTAKEARMSPARKMAX
 #define BURNAGITATORSPARKMAX
 #define PRINTDEBUG
-//#define CAMERAS
+#define CAMERAS
 
 namespace OperatorConstants {
 
@@ -215,6 +216,7 @@ constexpr int kOuttakeButton = 5; // LB
 constexpr int kIntakeButton = 6; // RB
 constexpr int kRaiseArmButton = 4; // Y
 constexpr int kLowerArmButton = 3; // X
+constexpr int kStartTurretYawTrackingButton = 1; // A
 
 
 }  // namespace Controller Constants
@@ -250,12 +252,22 @@ namespace TurretYawConstants {
 
 constexpr int kTurretYawMotorID = 24;
 
+// PID related constants for turret yaw
+//constexpr double kTurretYawP = 0.25;
+//constexpr double kTurretYawI = 0.0;
+//constexpr double kTurretYawD = 0.0;
+//constexpr int kTurretYawMinOutput = -1.0;
+//constexpr int kTurretYawMaxOutput = 1.0;
+
 constexpr rev::spark::SparkLowLevel::MotorType kTurretYawMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kTurretYawMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
-
 constexpr units::ampere_t kTurretYawMotorCurrentLimit = 40_A;
-
 constexpr int kYawLimitSwitchPort = 8;
+
+constexpr double kTurretYawDeadband = 2.0;
+constexpr double kTurretSlowdownBand = 3.0;
+constexpr double kTurretGain = 0.3;
+constexpr double kTurretYawMaxOutput = 0.25;
 
 } // namespace TurretYawConstants
 
@@ -283,6 +295,11 @@ constexpr int kPitchMaxOutput = 1.0;
 constexpr int kFarSetpoint = 6.0;
 
 } // namespace TurretPitchConstants
+
+namespace FieldConstants {
+    const frc::Pose2d kBlueHubCenter{4.63_m, 4.03_m, 0_rad};
+    const frc::Pose2d kRedHubCenter{11.92_m, 4.03_m, 0_rad};
+}
 
 namespace IntakeConstants {
 
@@ -343,11 +360,11 @@ constexpr double kMaxEstimationSpeed = 0.25; // mps
 inline constexpr std::string_view kCameraName{"Camera1"};
 inline constexpr std::string_view kCamera2Name{"Camera2"};
 inline const frc::Transform3d kRobotToCam{
-    frc::Translation3d{-0.142_m, 0.21_m, 0.047_m},
-    frc::Rotation3d{14_deg, 0_rad, 150_deg}};
+    frc::Translation3d{-0.105_m, 0.25_m, 0.047_m},
+    frc::Rotation3d{14_deg, 0_rad, 154_deg}};
 
 inline const frc::Transform3d kRobotToCam2{
-    frc::Translation3d{0.2794_m, -0.3302_m, 0.43815_m},
+    frc::Translation3d{0.5_m, -0.3302_m, 0.48_m},
     frc::Rotation3d{0_deg, -14_deg, -20_deg}};
 //    frc::Rotation3d{0_rad, -20_deg, 0_rad}};
 inline const frc::AprilTagFieldLayout kTagLayout{

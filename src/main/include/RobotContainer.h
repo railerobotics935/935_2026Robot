@@ -37,6 +37,7 @@
 #include "commands/autocommands/SimpleAutoShoot.h"
 #include "commands/autocommands/SimpleAutoStage.h"
 #include "commands/autocommands/SimpleAutoAgitate.h"
+#include "commands/turretyaw/SimpleTrackingRotate.h"
 
 
 

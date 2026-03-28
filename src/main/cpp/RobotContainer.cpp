@@ -64,11 +64,13 @@ void RobotContainer::ConfigureBindings() {
  frc2::JoystickButton outtakeButton(&m_operatorController, ControllerConstants::kOuttakeButton);
  frc2::JoystickButton lowerArmButton(&m_operatorController, ControllerConstants::kLowerArmButton);
  frc2::JoystickButton raiseArmButton(&m_operatorController, ControllerConstants::kRaiseArmButton);
+ frc2::JoystickButton startTurretYawTrackingButton(&m_operatorController, ControllerConstants::kStartTurretYawTrackingButton);
 
 
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
  intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem}.ToPtr());
  outtakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem}.ToPtr());
+ startTurretYawTrackingButton.WhileTrue(SimpleTrackingRotate{&m_turretYawSubsystem, &m_driveSubsystem}.ToPtr());
  #endif //Testboard
  lowerArmButton.WhileTrue(SimpleLowerArm{&m_intakeArmSubsystem}.ToPtr());
  raiseArmButton.WhileTrue(SimpleRaiseArm{&m_intakeArmSubsystem}.ToPtr());

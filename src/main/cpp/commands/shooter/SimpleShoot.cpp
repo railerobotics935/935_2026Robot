@@ -18,7 +18,7 @@ void SimpleShoot::Initialize() {
 
 void SimpleShoot::Execute() {
 
-  double shootPower = m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftTrigger) * -0.5;
+  double shootPower = m_operatorController->GetRawAxis(ControllerConstants::kOperatorLeftTrigger) * -0.6;
 
   m_shooter->SetShooterMotorPower(shootPower);
 }

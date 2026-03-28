@@ -5,6 +5,7 @@
 #include <Constants.h>
 #include <frc/geometry/CoordinateSystem.h>
 #include <frc/Timer.h>
+#include <units/time.h>
 
 #include "subsystems/sensors/ApriltagSensor.h"
 
@@ -38,6 +39,8 @@ ApriltagSensor::ApriltagSensor(std::function<void(frc::Pose2d, units::second_t)>
 void ApriltagSensor::Periodic () {
 //  std::cout << "ApriltagSensor Periodic" << std::endl;
 
+  //units::second_t timestamp_secondsStart = frc::Timer::GetFPGATimestamp();
+
   for(const auto& result : m_camera.GetAllUnreadResults()) {
     auto visionEst = m_photonEstimator.EstimateCoprocMultiTagPose(result);
     if (!visionEst) {
@@ -62,7 +65,7 @@ void ApriltagSensor::Periodic () {
 
       if (coutCounter > 50)
       {
-        std::cout << "3D Estimated X: " << (double)visionEst->estimatedPose.X() << " Y: " << (double)visionEst->estimatedPose.Y() << " Z: " << (double)visionEst->estimatedPose.Z() << std::endl;
+//        std::cout << "3D Estimated X: " << (double)visionEst->estimatedPose.X() << " Y: " << (double)visionEst->estimatedPose.Y() << " Z: " << (double)visionEst->estimatedPose.Z() << std::endl;
         std::cout << "2D Estimated X: " << (double)visionEst->estimatedPose.ToPose2d().X() << " Y: " << (double)visionEst->estimatedPose.ToPose2d().Y() << std::endl;
         coutCounter = 0;
       }
@@ -97,6 +100,11 @@ void ApriltagSensor::Periodic () {
 //      std::cout << "Estimated X: " << (double)visionEst->estimatedPose.ToPose2d().X() << " Estimated Y: " << (double)visionEst->estimatedPose.ToPose2d().Y() << std::endl;
     }
   }
+  //units::second_t timestamp_secondsEnd = frc::Timer::GetFPGATimestamp();
+
+  //if (double(timestamp_secondsEnd - timestamp_secondsStart) > 0.000 ){
+    //std::cout << "Apriltag Sensor " << double(timestamp_secondsEnd - timestamp_secondsStart) << std::endl;
+  //}
 }
 
 photon::PhotonPipelineResult ApriltagSensor::GetLatestResult() { 

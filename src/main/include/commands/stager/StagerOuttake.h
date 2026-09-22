@@ -6,25 +6,25 @@
 #include <frc/XboxController.h>
 
 #include "subsystems/StagerSubsystem.h"
+#include "Constants.h"
 
 #ifndef DISABLEINTAKE
 
-class StagerStop
-  : public frc2::CommandHelper<frc2::Command, StagerStop> {
+class StagerOuttake
+  : public frc2::CommandHelper<frc2::Command, StagerOuttake> {
 public:
   /**
-   * Creates a new SimpleStagerIntake.
+   * Creates a new StagerOuttake.
    *
    * @param Stager The pointer to the stager subsystem
    */
-  explicit StagerStop(StagerSubsystem* stager, frc::XboxController* operatorController);
+  explicit StagerOuttake(StagerSubsystem* stager);
 
   void Initialize() override;
   void End(bool interrupted) override;
   
 private:
   StagerSubsystem* m_stager;
-  frc::XboxController* m_operatorController;
 };
 
-#endif //DISABLEINTAKE 
+#endif //DISABLEINTAKE

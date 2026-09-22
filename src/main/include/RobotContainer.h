@@ -15,12 +15,17 @@
 #include "subsystems/TurretYawSubsystem.h"
 #include "subsystems/TurretPitchSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
+#include "subsystems/AgitatorSubsystem.h"
 
 #include "commands/drive/DriveWithController.h"
 #include "commands/shooter/SimpleShoot.h"
 #include "commands/shooter/StopShooter.h"
 #include "commands/stager/SimpleStagerIntake.h"
+#include "commands/stager/StagerOuttake.h"
 #include "commands/stager/StagerStop.h"
+#include "commands/stager/AgitatorStop.h"
+#include "commands/stager/RunAgitator.h"
+#include "commands/stager/ReverseAgitator.h"
 #include "commands/turretyaw/SimpleRotateTurretYaw.h"
 #include "commands/turretpitch/SimpleMoveTurretPitch.h"
 #include "commands/intake/SimpleIntake.h"
@@ -51,24 +56,32 @@ class RobotContainer {
   // The robot's subsystems are defined here
   ExampleSubsystem m_subsystem;
   DriveSubsystem m_driveSubsystem;
-  //#ifndef TESTBOARD
-  //ShooterSubsystem m_shooterSubsystem;
-  //StagerSubsystem m_stagerSubsystem;
+  #ifndef TESTBOARD
   TurretYawSubsystem m_turretYawSubsystem;
-  //TurretPitchSubsystem m_turretPitchSubsystem;
-  //IntakeSubsystem m_intakeSubsystem;
-  //#endif //testboard
+  TurretPitchSubsystem m_turretPitchSubsystem;
+  #endif //testboard
+
+  #ifndef DISABLEINTAKE
+  ShooterSubsystem m_shooterSubsystem;
+  StagerSubsystem m_stagerSubsystem;
+  IntakeSubsystem m_intakeSubsystem;
+  AgitatorSubsystem m_agitatorSubsystem;
+  #endif //DISABLEINTAKE
 
   void ConfigureBindings();
 
   // Commands
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
-  //#ifndef TESTBOARD
+  #ifndef TESTBOARD
   SimpleRotateTurretYaw m_simpleRotateTurretYaw{&m_turretYawSubsystem, &m_operatorController};
-  //SimpleMoveTurretPitch m_simpleMoveTurretPitch{&m_turretPitchSubsystem, &m_operatorController};
-  //StagerStop m_stagerStop{&m_stagerSubsystem, &m_operatorController};
-  //StopIntake m_stopIntake{&m_intakeSubsystem, &m_operatorController};
-  //StopShooter m_stopShooter{&m_shooterSubsystem, &m_operatorController};
-  //#endif //testboard
+  SimpleMoveTurretPitch m_simpleMoveTurretPitch{&m_turretPitchSubsystem, &m_operatorController};
+  #endif //testboard
+  #ifndef DISABLEINTAKE
+  StopShooter m_stopShooter{&m_shooterSubsystem, &m_operatorController};
+  StagerStop m_stagerStop{&m_stagerSubsystem, &m_operatorController};
+  StopIntake m_stopIntake{&m_intakeSubsystem, &m_operatorController};
+  AgitatorStop m_agitatorStop{&m_agitatorSubsystem, &m_operatorController};
+  #endif //DISABLEINTAKE
+  
 
 };

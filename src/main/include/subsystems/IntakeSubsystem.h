@@ -6,14 +6,14 @@
 
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h>
-#include <networktables/NetworkTableEntry.h>
-#include <networktables/NetworkTableInstance.h>
+// #include <networktables/NetworkTableEntry.h>
+// #include <networktables/NetworkTableInstance.h>
 #include <rev/SparkMax.h>
 #include <frc/DigitalInput.h>
 #include <iostream>
 #include <Constants.h>
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 class IntakeSubsystem : public frc2::SubsystemBase {
  public:
@@ -47,7 +47,8 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
 
   // Motor Controllers
-  rev::spark::SparkMax m_intakeSparkMax;
+  rev::spark::SparkMax m_intakeFrontSparkMax;
+  rev::spark::SparkMax m_intakeRearSparkMax;
 
   // Light Sensor is a digital input in the DIO port (digital input output)
   //frc::DigitalInput m_lightSensor{IntakeConstants::kLightSensorID};
@@ -57,4 +58,4 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   //nt::NetworkTableEntry nte_coralInIntake;
 };
 
-#endif //TESTBOARD
+#endif //DISABLEINTAKE

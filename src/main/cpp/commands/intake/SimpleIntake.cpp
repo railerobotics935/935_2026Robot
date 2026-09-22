@@ -1,7 +1,6 @@
 
 #include "Constants.h"
-
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 #include "commands/intake/SimpleIntake.h"
 
@@ -25,4 +24,4 @@ void SimpleIntake::End(bool interrupted) {
   m_intake->SetIntakeMotorPower(0.0);
 }
 
-#endif // TESTBOARD
+#endif // DISABLEINTAKE

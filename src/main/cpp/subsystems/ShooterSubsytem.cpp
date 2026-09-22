@@ -6,7 +6,7 @@
 #include "subsystems/ShooterSubsystem.h"
 #include "Constants.h"
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 ShooterSubsystem::ShooterSubsystem() 
 
@@ -63,4 +63,4 @@ void ShooterSubsystem::SetShooterMotorPower(double power) {
 double ShooterSubsystem::GetDirection() {
   return m_rightShooterSparkMax.Get();
 }
-#endif //testboard
+#endif //DISABLEINTAKE

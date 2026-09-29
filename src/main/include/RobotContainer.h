@@ -54,7 +54,7 @@ class RobotContainer {
   //#ifndef TESTBOARD
   //ShooterSubsystem m_shooterSubsystem;
   //StagerSubsystem m_stagerSubsystem;
-  TurretYawSubsystem m_turretYawSubsystem;
+  //TurretYawSubsystem m_turretYawSubsystem;
   //TurretPitchSubsystem m_turretPitchSubsystem;
   //IntakeSubsystem m_intakeSubsystem;
   //#endif //testboard
@@ -64,7 +64,7 @@ class RobotContainer {
   // Commands
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
   //#ifndef TESTBOARD
-  SimpleRotateTurretYaw m_simpleRotateTurretYaw{&m_turretYawSubsystem, &m_operatorController};
+  //SimpleRotateTurretYaw m_simpleRotateTurretYaw{&m_turretYawSubsystem, &m_operatorController};
   //SimpleMoveTurretPitch m_simpleMoveTurretPitch{&m_turretPitchSubsystem, &m_operatorController};
   //StagerStop m_stagerStop{&m_stagerSubsystem, &m_operatorController};
   //StopIntake m_stopIntake{&m_intakeSubsystem, &m_operatorController};

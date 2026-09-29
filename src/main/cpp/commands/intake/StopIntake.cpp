@@ -1,7 +1,7 @@
 
 #include "Constants.h"
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 #include "commands/intake/StopIntake.h"
 StopIntake::StopIntake(IntakeSubsystem *intake, frc::XboxController* operatorController) : m_intake{intake}, m_operatorController{operatorController} {
@@ -19,4 +19,4 @@ void StopIntake::End(bool interrupted) {
   #endif
     m_intake->SetIntakeMotorPower(0.0);
 }
-#endif //TESTBOARD
+#endif //DISABLEINTAKE

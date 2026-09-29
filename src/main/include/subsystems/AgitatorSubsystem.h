@@ -15,19 +15,19 @@
 
 #ifndef DISABLEINTAKE
 
-class StagerSubsystem : public frc2::SubsystemBase {
+class AgitatorSubsystem : public frc2::SubsystemBase {
  public:
   /**
    * Picks up game pieces
   */
-  StagerSubsystem();
+  AgitatorSubsystem();
 
   // Sets the motor's power (between -1.0 and 1.0).
   
   void Periodic() override;
 
   
-  void SetStagerMotorPower(double power);
+  void SetAgitatorMotorPower(double power);
 
   /**
    * @return Direction intake motor is moving
@@ -37,7 +37,7 @@ class StagerSubsystem : public frc2::SubsystemBase {
   /**
    * @return If light sensor has detected a coral
    */
-  //bool CoralInShooter();
+  //bool CoralInIntake();
 
  private:
 
@@ -47,13 +47,14 @@ class StagerSubsystem : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
 
   // Motor Controllers
-  rev::spark::SparkMax m_stagerSparkMax;
+  rev::spark::SparkMax m_agitatorSparkMax;
 
   // Light Sensor is a digital input in the DIO port (digital input output)
-  //frc::DigitalInput m_lightSensor{ShooterConstants::kLightSensorID};
+  //frc::DigitalInput m_lightSensor{IntakeConstants::kLightSensorID};
 
 
   //Network Table Entry
-  //nt::NetworkTableEntry nte_coralInShooter;
+  //nt::NetworkTableEntry nte_coralInIntake;
 };
+
 #endif //DISABLEINTAKE

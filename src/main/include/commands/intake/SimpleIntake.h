@@ -1,7 +1,7 @@
 
 #pragma once
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
@@ -25,4 +25,4 @@ public:
 private:
   IntakeSubsystem* m_intake;
 };
-#endif //TESTBOARD
+#endif //DISABLEINTAKE

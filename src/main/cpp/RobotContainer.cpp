@@ -5,6 +5,7 @@
 #include "RobotContainer.h"
 
 #include <frc2/command/button/JoystickButton.h>
+#include <frc2/command/Commands.h>
 
 #include "commands/Autos.h"
 #include "commands/ExampleCommand.h"
@@ -20,28 +21,43 @@ RobotContainer::RobotContainer() {
   #ifndef TESTBOARD
   m_turretPitchSubsystem.SetDefaultCommand(std::move(m_simpleMoveTurretPitch));
   m_turretYawSubsystem.SetDefaultCommand(std::move(m_simpleRotateTurretYaw));
-  m_stagerSubsystem.SetDefaultCommand(std::move(m_stagerStop));
   m_shooterSubsystem.SetDefaultCommand(std::move(m_stopShooter));
-  m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake)); 
   #endif //testboard
+  #ifndef DISABLEINTAKE
+  m_stagerSubsystem.SetDefaultCommand(std::move(m_stagerStop));
+  m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake));
+  m_agitatorSubsystem.SetDefaultCommand(std::move(m_agitatorStop));
+  #endif //DISABLEINTAKE
 }
 
 void RobotContainer::ConfigureBindings() {
   // Configure your trigger bindings here
-  
+  frc2::JoystickButton resetButton (&m_driveController, ControllerConstants::kResetButton);
+
+   resetButton.OnTrue(frc2::cmd::RunOnce([&] {m_driveSubsystem.ZeroHeading();}, {}));
+
  #ifndef TESTBOARD
- frc2::JoystickButton shootButton (&m_operatorController, ControllerConstants::kShootButton);
- frc2::JoystickButton stagerIntakeButton (&m_operatorController, ControllerConstants::kStagerIntakeButton);
- frc2::JoystickButton intakeButton (&m_operatorController, ControllerConstants::kIntakeButton);
- frc2::JoystickButton outtakeButton (&m_operatorController, ControllerConstants::kOuttakeButton);
 
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+ #endif //Testboard
+
+ #ifndef DISABLEINTAKE
+ frc2::JoystickButton shootButton (&m_operatorController, ControllerConstants::kShootButton);
+ frc2::JoystickButton stagerIntakeButton (&m_operatorController, ControllerConstants::kStagerIntakeButton);
+ frc2::JoystickButton stagerOuttakeButton (&m_operatorController, ControllerConstants::kStagerOuttakeButton);
+ frc2::JoystickButton intakeButton (&m_operatorController, ControllerConstants::kIntakeButton);
+ frc2::JoystickButton outtakeButton (&m_operatorController, ControllerConstants::kOuttakeButton);
+ frc2::JoystickButton agitatorIntakeButton (&m_operatorController, ControllerConstants::kAgitatorIntakeButton);
+ frc2::JoystickButton agitatorOuttakeButton(&m_operatorController, ControllerConstants::kAgitatorOuttakeButton);
+
  shootButton.WhileTrue(SimpleShoot{&m_shooterSubsystem}.ToPtr());
  stagerIntakeButton.WhileTrue(SimpleStagerIntake{&m_stagerSubsystem}.ToPtr());
+ stagerOuttakeButton.WhileTrue(StagerOuttake{&m_stagerSubsystem}.ToPtr());
  intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem}.ToPtr());
  outtakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem}.ToPtr());
- #endif //Testboard
- 
+ agitatorIntakeButton.WhileTrue(RunAgitator{&m_agitatorSubsystem}.ToPtr());
+ agitatorOuttakeButton.WhileTrue(ReverseAgitator{&m_agitatorSubsystem}.ToPtr());
+ #endif //DISABLEINTAKE
 
 
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`

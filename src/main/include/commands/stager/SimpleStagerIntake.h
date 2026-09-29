@@ -8,7 +8,7 @@
 #include "subsystems/StagerSubsystem.h"
 #include "Constants.h"
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 class SimpleStagerIntake
   : public frc2::CommandHelper<frc2::Command, SimpleStagerIntake> {
@@ -27,4 +27,4 @@ private:
   StagerSubsystem* m_stager;
 };
 
-#endif //Tesboard
+#endif //DISABLEINTAKE

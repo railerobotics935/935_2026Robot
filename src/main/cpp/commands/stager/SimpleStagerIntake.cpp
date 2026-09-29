@@ -2,7 +2,7 @@
 #include "Constants.h"
 #include "commands/stager/SimpleStagerIntake.h"
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 SimpleStagerIntake::SimpleStagerIntake(StagerSubsystem *stager) : m_stager{stager} {
 
@@ -24,4 +24,4 @@ void SimpleStagerIntake::End(bool interrupted) {
   m_stager->SetStagerMotorPower(0.0);
 }
 
-#endif
+#endif //DISABLEINTAKE

@@ -1,7 +1,7 @@
 
 #include "Constants.h"
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 #include "commands/shooter/StopShooter.h"
 StopShooter::StopShooter(ShooterSubsystem *shooter, frc::XboxController* operatorController) : m_shooter{shooter}, m_operatorController{operatorController} {
@@ -19,4 +19,4 @@ void StopShooter::End(bool interrupted) {
   #endif
     m_shooter->SetShooterMotorPower(0.0);
 }
-#endif //TESTBOARD
+#endif //DISABLEINTAKE

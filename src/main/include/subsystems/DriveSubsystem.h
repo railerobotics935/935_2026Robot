@@ -312,8 +312,8 @@ private:
   double m_turning_Kd = ModuleConstants::kTurningD;
 
 
-  // The gyro sensor
-  frc::ADIS16470_IMU m_gyro{frc::ADIS16470_IMU::IMUAxis::kZ, frc::ADIS16470_IMU::IMUAxis::kY, frc::ADIS16470_IMU::IMUAxis::kX};
+  // The gyro sensor, order of arguments: yaw, pitch, roll
+  frc::ADIS16470_IMU m_gyro{frc::ADIS16470_IMU::IMUAxis::kZ, frc::ADIS16470_IMU::IMUAxis::kX, frc::ADIS16470_IMU::IMUAxis::kY};
   // Odometry class for tracking robot pose
   // 4 defines the number of modules
   frc::SwerveDriveOdometry<4> m_odometry;

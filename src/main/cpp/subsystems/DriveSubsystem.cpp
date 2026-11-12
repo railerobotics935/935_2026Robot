@@ -87,7 +87,7 @@ AutoBuilder::configure(
       },
       this // Reference to this subsystem to set requirements
   );
-#endif
+  #endif
 
   // Initialize shuffleboard communication
   auto nt_inst = nt::NetworkTableInstance::GetDefault();

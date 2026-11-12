@@ -1,7 +1,7 @@
 
 #include "Constants.h"
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 #include "commands/shooter/SimpleShoot.h"
 
@@ -25,4 +25,4 @@ void SimpleShoot::End(bool interrupted) {
   m_shooter->SetShooterMotorPower(0.0);
 }
 
-#endif // TESTBOARD
+#endif // DISABLEINTAKE

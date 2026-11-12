@@ -35,9 +35,10 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
-#define BURNSHOOTERSPARKMAX
+//#define BURNSHOOTERSPARKMAX
 #define TESTBOARD
-#define BURNMODULESPARKMAX
+//#define BURNMODULESPARKMAX
+//#define DISABLEINTAKE
 
 namespace OperatorConstants {
 
@@ -50,8 +51,12 @@ namespace RobotConstants {
 
 constexpr double kVoltageCompensationValue = 11.0;
 
-const units::meter_t kWheelBase =
-    0.4075_m;  // Distance between centers of front and back wheels on robot
+//const units::meter_t kWheelBase =
+//    0.4075_m;  // Distance between centers of front and back wheels on robot
+const units::meter_t kFrontWheelOffset =
+    0.3725_m;  // Distance between center of robot to front wheels on robot
+const units::meter_t kRearWheelOffset =
+    -0.035_m;  // Distance between center of robot to back wheels on robot
 const units::meter_t kIntakeSideWheelWidth =
     0.8125_m; // Distance between centers of left and right wheels on robot
 const units::meter_t kCurveSideWheelWidth =
@@ -71,6 +76,7 @@ constexpr double kRotationalSlewRate = 8.0;  // percent per second (1 = 100%)
 
 // CAN Sparkmax id numbers
 constexpr int kFrontLeftDriveMotorPort = 26;
+constexpr int kFrontLeftDriveMotorPort = 26;
 constexpr int kFrontRightDriveMotorPort = 28;
 constexpr int kBackLeftDriveMotorPort = 22;
 constexpr int kBackRightDriveMotorPort = 20;
@@ -80,7 +86,7 @@ constexpr int kFrontRightTurningMotorPort = 14;
 constexpr int kBackLeftTurningMotorPort = 23;
 constexpr int kBackRightTurningMotorPort = 21;
 
-// PID Controller for the auto rotation of the robot
+// PID Controller for the auto rotation of the robotx
 constexpr double kRotationP = 2.5;
 constexpr double kRotationI = 0.002;
 constexpr double kRotationD = 0.2;
@@ -192,10 +198,18 @@ constexpr int kOperatorLeftTrigger = 2; // Pressing creates a POSITIVE output
 constexpr int kOperatorRightTrigger = 3; // Pressing creates a POSITIVE output
 constexpr int kOperatorLeftXIndex = 0; // An input RIGHT creates a NEGATIVE output
 
+//Driver Buttons
+constexpr int kResetButton = 2;
+constexpr int kFieldRelativeButton = 7;
+constexpr int kRobotRelativeButton = 8;
 
-//operator buttons
-constexpr int kShootButton = 5; //rb
-constexpr int kStagerIntakeButton = 6; //lb
+
+//Operator Buttons
+constexpr int kShootButton = 5; //LB
+constexpr int kStagerIntakeButton = 6; //RB
+constexpr int kStagerOuttakeButton = 7; //Same as Field Rel button
+constexpr int kAgitatorOuttakeButton = 9; //LeftJoystickPress
+constexpr int kAgitatorIntakeButton = 10; //RightJoystickPress
 constexpr int kIntakeButton = 1; //A
 constexpr int kOuttakeButton = 2; //B
 
@@ -204,8 +218,8 @@ constexpr int kOuttakeButton = 2; //B
 namespace ShooterConstants {
 
 // Intake Motors
-constexpr int kShooterRightMotorID = 23;
-constexpr int kShooterLeftMotorID = 22;
+constexpr int kShooterRightMotorID = 10;
+constexpr int kShooterLeftMotorID = 12;
 
 constexpr rev::spark::SparkLowLevel::MotorType kShooterMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
 constexpr rev::spark::SparkMaxConfig::IdleMode kShooterMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
@@ -216,7 +230,7 @@ constexpr units::ampere_t kShooterMotorCurrentLimit = 40_A;
 
 namespace StagerConstants {
     
-constexpr int kStagerShooterMotorID = 20;
+constexpr int kStagerShooterMotorID = 19;
 
     
 constexpr rev::spark::SparkLowLevel::MotorType kStagerMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
@@ -260,6 +274,17 @@ constexpr rev::spark::SparkMaxConfig::IdleMode kIntakeMotorIdleMode = rev::spark
 constexpr units::ampere_t kIntakeMotorCurrentLimit = 40_A;
 
 } // namespace IntakeConstants
+
+namespace AgitatorConstants {
+
+constexpr int kAgitatorMotorID = 25;
+
+constexpr rev::spark::SparkLowLevel::MotorType kAgitatorMotorType = rev::spark::SparkLowLevel::MotorType::kBrushless;
+constexpr rev::spark::SparkMaxConfig::IdleMode kAgitatorMotorIdleMode = rev::spark::SparkMaxConfig::IdleMode::kBrake;
+
+constexpr units::ampere_t kAgitatorMotorCurrentLimit = 40_A;
+
+} // namespace AgitatorConstants
 
 namespace CameraConstants {
 

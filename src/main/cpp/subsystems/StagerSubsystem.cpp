@@ -6,7 +6,7 @@
 #include "subsystems/StagerSubsystem.h"
 #include "Constants.h"
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 StagerSubsystem::StagerSubsystem() 
 
@@ -53,4 +53,4 @@ double StagerSubsystem::GetDirection() {
   return m_stagerSparkMax.Get();
 }
 
-#endif //Testboard
+#endif //DISABLEINTAKE

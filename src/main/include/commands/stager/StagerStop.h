@@ -7,7 +7,7 @@
 
 #include "subsystems/StagerSubsystem.h"
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 class StagerStop
   : public frc2::CommandHelper<frc2::Command, StagerStop> {
@@ -27,4 +27,4 @@ private:
   frc::XboxController* m_operatorController;
 };
 
-#endif //Testboard 
+#endif //DISABLEINTAKE 

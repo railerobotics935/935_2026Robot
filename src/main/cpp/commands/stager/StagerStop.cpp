@@ -2,7 +2,7 @@
 #include "Constants.h"
 #include "commands/stager/StagerStop.h"
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 StagerStop::StagerStop(StagerSubsystem *stager, frc::XboxController *operatorController) : m_stager{stager}, m_operatorController{operatorController} {
 
@@ -24,4 +24,4 @@ void StagerStop::End(bool interrupted) {
   m_stager->SetStagerMotorPower(0.0);
 }
 
-#endif //Testboard
+#endif //DISABLEINTAKE

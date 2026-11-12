@@ -31,7 +31,7 @@
 
 class ApriltagSensor : public frc2::SubsystemBase{
 public:
-    /**
+   /**
    * ApriltagSensor is meant to be implemnted as any other sensor for the robot
    * but simply takes information from Network tables and oragnizes it for use 
    * in the robot code

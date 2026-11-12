@@ -13,7 +13,7 @@
 #include <iostream>
 #include <Constants.h>
 
-#ifndef TESTBOARD
+#ifndef DISABLEINTAKE
 
 class StagerSubsystem : public frc2::SubsystemBase {
  public:
@@ -56,4 +56,4 @@ class StagerSubsystem : public frc2::SubsystemBase {
   //Network Table Entry
   //nt::NetworkTableEntry nte_coralInShooter;
 };
-#endif //testboard
+#endif //DISABLEINTAKE

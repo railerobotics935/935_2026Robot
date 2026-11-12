@@ -51,6 +51,8 @@ class RobotContainer {
   // The robot's subsystems are defined here
   ExampleSubsystem m_subsystem;
   DriveSubsystem m_driveSubsystem;
+  IntakeSubsystem m_intakeSubsystem;
+
   #ifndef TESTBOARD
   ShooterSubsystem m_shooterSubsystem;
   StagerSubsystem m_stagerSubsystem;
@@ -63,6 +65,9 @@ class RobotContainer {
 
   // Commands
   DriveWithController m_driveWithController{&m_driveSubsystem, &m_driveController};
+  
+  StopIntake m_stopIntake{&m_intakeSubsystem, &m_operatorController};
+
   #ifndef TESTBOARD
   SimpleRotateTurretYaw m_simpleRotateTurretYaw{&m_turretYawSubsystem, &m_operatorController};
   SimpleMoveTurretPitch m_simpleMoveTurretPitch{&m_turretPitchSubsystem, &m_operatorController};

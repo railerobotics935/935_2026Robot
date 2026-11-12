@@ -1,7 +1,7 @@
 
 #include "Constants.h"
 
-#ifndef TESTBOARD
+//#ifndef TESTBOARD
 
 #include "commands/intake/SimpleOuttake.h"
 
@@ -14,7 +14,7 @@ void SimpleOuttake::Initialize() {
 #ifdef PRINTDEBUG
   std::cout << "SimpleOuttake Initialized\r\n";
 #endif
-  m_intake->SetIntakeMotorPower(-1.0);
+  m_intake->SetIntakeMotorPower(1.0);
 }
 
 
@@ -25,4 +25,4 @@ void SimpleOuttake::End(bool interrupted) {
   m_intake->SetIntakeMotorPower(0.0);
 }
 
-#endif // TESTBOARD
+//#endif // TESTBOARD

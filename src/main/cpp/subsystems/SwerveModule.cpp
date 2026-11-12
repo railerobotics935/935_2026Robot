@@ -88,12 +88,12 @@ void SwerveModule::ConfigureSparkMax() {
 
 frc::SwerveModuleState SwerveModule::GetState() {
   return {units::meters_per_second_t{m_drivingEncoder.GetVelocity()},
-          units::radian_t{m_turningAbsoluteEncoder.GetPosition() - m_turningEncoderOffset}};
+          units::radian_t{m_turningAbsoluteEncoder.GetPosition() + m_turningEncoderOffset}};
 }
 
 frc::SwerveModulePosition SwerveModule::GetPosition() {
   return {units::meter_t{m_drivingEncoder.GetPosition()},
-          units::radian_t{m_turningAbsoluteEncoder.GetPosition() - m_turningEncoderOffset}};
+          units::radian_t{m_turningAbsoluteEncoder.GetPosition() + m_turningEncoderOffset}};
 }
 
 void SwerveModule::SetDesiredState(const frc::SwerveModuleState& desiredState){

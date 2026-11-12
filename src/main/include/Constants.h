@@ -25,7 +25,7 @@
 #include <rev/config/SparkMaxConfig.h>
 
 
-//#define TESTBOARD //disable when on actual robot, to seperate when we are working on the oculus vs the actual robot 
+#define TESTBOARD //disable when on actual robot, to seperate when we are working on the oculus vs the actual robot 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other
@@ -70,13 +70,13 @@ constexpr double kMagnitudeSlewRate = 7.0;   // percent per second (1 = 100%)
 constexpr double kRotationalSlewRate = 8.0;  // percent per second (1 = 100%)
 
 // CAN Sparkmax id numbers
-constexpr int kFrontLeftDriveMotorPort = 16;
+constexpr int kFrontLeftDriveMotorPort = 26;
 constexpr int kFrontRightDriveMotorPort = 28;
 constexpr int kBackLeftDriveMotorPort = 22;
 constexpr int kBackRightDriveMotorPort = 20;
 
-constexpr int kFrontLeftTurningMotorPort = 15;
-constexpr int kFrontRightTurningMotorPort = 29;
+constexpr int kFrontLeftTurningMotorPort = 27;
+constexpr int kFrontRightTurningMotorPort = 14;
 constexpr int kBackLeftTurningMotorPort = 23;
 constexpr int kBackRightTurningMotorPort = 21;
 
@@ -97,10 +97,10 @@ constexpr int kBackRightTurningEncoderPort = kBackRightTurningMotorPort;
 //constexpr double kFrontRightDriveEncoderOffset = (3.2676) - (std::numbers::pi / 3) - 0.062; 
 //constexpr double kBackLeftDriveEncoderOffset =  (2.0477) - (2.0 * std::numbers::pi / 3) + std::numbers::pi + 0.050; //(0.6988 + (std::numbers::pi / 2)); 
 //constexpr double kBackRightDriveEncoderOffset = (3.8439 + (std::numbers::pi / 2)) - 0.019; //(2.0472 + (std::numbers::pi)); 
-constexpr double kFrontLeftTurnEncoderOffset = (std::numbers::pi / 2); //-(std::numbers::pi / 2); //2.789 - (std::numbers::pi / 2) - std::numbers::pi;
-constexpr double kFrontRightTurnEncoderOffset = (std::numbers::pi); //4.996 - std::numbers::pi; 
-constexpr double kBackLeftTurnEncoderOffset = 0; //5.756; 
-constexpr double kBackRightTurnEncoderOffset = -((std::numbers::pi) / 2); //4.407 + (std::numbers::pi / 2) - std::numbers::pi;
+constexpr double kFrontLeftTurnEncoderOffset = 0; //(std::numbers::pi / 2); //-(std::numbers::pi / 2); //2.789 - (std::numbers::pi / 2) - std::numbers::pi;
+constexpr double kFrontRightTurnEncoderOffset = 0;// (std::numbers::pi); //4.996 - std::numbers::pi; 
+constexpr double kBackLeftTurnEncoderOffset = 0;//5.756; 
+constexpr double kBackRightTurnEncoderOffset = 0;//-((std::numbers::pi) / 2); //4.407 + (std::numbers::pi / 2) - std::numbers::pi;
 
 constexpr auto kDriveBaseRadius = 0.46_m;
 
@@ -144,7 +144,7 @@ constexpr units::radian_t kTurningEncoderPositionPIDMaxInput =
 constexpr double kDrivingP = 0.0;
 constexpr double kDrivingI = 0.0;
 constexpr double kDrivingD = 0.0;
-constexpr double kDrivingFF = (4 / kDriveWheelFreeSpeedRps);
+constexpr double kDrivingFF = (8 / kDriveWheelFreeSpeedRps);
 constexpr double kDrivingMinOutput = -1;
 constexpr double kDrivingMaxOutput = 1;
 
@@ -250,7 +250,7 @@ constexpr units::ampere_t kTurretPitchMotorCurrentLimit = 40_A;
 
 namespace IntakeConstants {
 
-constexpr int kIntakeMotorID = 7;
+constexpr int kIntakeMotorID = 17;
 constexpr int kIntakeAMotorID = 8;
 constexpr int kIntakeBMotor = 9;
 

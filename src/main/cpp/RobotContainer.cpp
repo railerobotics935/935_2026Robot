@@ -17,6 +17,9 @@ RobotContainer::RobotContainer() {
 
   // Set Default Commands for Subsystems
   m_driveSubsystem.SetDefaultCommand(std::move(m_driveWithController));
+
+  m_intakeSubsystem.SetDefaultCommand(std::move(m_stopIntake)); 
+
   #ifndef TESTBOARD
   m_turretPitchSubsystem.SetDefaultCommand(std::move(m_simpleMoveTurretPitch));
   m_turretYawSubsystem.SetDefaultCommand(std::move(m_simpleRotateTurretYaw));
@@ -29,6 +32,13 @@ RobotContainer::RobotContainer() {
 void RobotContainer::ConfigureBindings() {
   // Configure your trigger bindings here
   
+ frc2::JoystickButton intakeButton (&m_operatorController, ControllerConstants::kIntakeButton);
+ frc2::JoystickButton outtakeButton (&m_operatorController, ControllerConstants::kOuttakeButton);
+
+
+intakeButton.WhileTrue(SimpleIntake{&m_intakeSubsystem}.ToPtr());
+outtakeButton.WhileTrue(SimpleOuttake{&m_intakeSubsystem}.ToPtr());
+
  #ifndef TESTBOARD
  frc2::JoystickButton shootButton (&m_operatorController, ControllerConstants::kShootButton);
  frc2::JoystickButton stagerIntakeButton (&m_operatorController, ControllerConstants::kStagerIntakeButton);

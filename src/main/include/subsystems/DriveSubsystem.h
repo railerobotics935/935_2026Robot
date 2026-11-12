@@ -55,6 +55,7 @@ public:
    * @param ySpeed        Speed of the robot in the y direction (sideways).
    * @param rot           Angular rate of the robot.
    * @param rateLimit     Whether to limit the rate of the robot (Recomended)
+   * @param turning       Only Used to fix the 2026 robot, remove after 2026
    */
   void Drive(units::meters_per_second_t xSpeed,
               units::meters_per_second_t ySpeed, units::radians_per_second_t rot,
@@ -249,10 +250,12 @@ public:
    */
 
 frc::SwerveDriveKinematics<4> m_driveKinematics{
-    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(-RobotConstants::kIntakeSideWheelWidth / 2)},   //Front Left
-    frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2), units::meter_t(RobotConstants::kIntakeSideWheelWidth / 2)},   //Front Right
-    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2), units::meter_t(-RobotConstants::kCurveSideWheelWidth / 2)},  //Back Left
-    frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2), units::meter_t(RobotConstants::kCurveSideWheelWidth / 2)}};  //Back Right
+  // WPILib uses North-West-Up coordinates for swerve drive kinemetics
+  // positive X points forward, positive Y points to the left, positive Z is up, CCW is positive
+  frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2),units::meter_t(RobotConstants::kIntakeSideWheelWidth / 2)},   //Front Left
+  frc::Translation2d{units::meter_t(RobotConstants::kWheelBase / 2), units::meter_t(-RobotConstants::kIntakeSideWheelWidth / 2)},   //Front Right
+  frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2), units::meter_t(RobotConstants::kCurveSideWheelWidth / 2)},  //Back Left
+  frc::Translation2d{units::meter_t(-RobotConstants::kWheelBase / 2), units::meter_t(-RobotConstants::kCurveSideWheelWidth / 2)}};  //Back Right
 
 private:
   // Declaring all of the network table entries

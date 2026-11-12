@@ -1,7 +1,6 @@
 
 #pragma once
 
-#ifndef TESTBOARD
 
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandHelper.h>
@@ -26,4 +25,3 @@ private:
   IntakeSubsystem* m_intake;
   frc::XboxController* m_operatorController;
 };
-#endif //TESTBOARD

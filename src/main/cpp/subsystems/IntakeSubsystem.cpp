@@ -6,7 +6,7 @@
 #include "subsystems/IntakeSubsystem.h"
 #include "Constants.h"
 
-#ifndef TESTBOARD
+
 
 IntakeSubsystem::IntakeSubsystem() 
 
@@ -49,4 +49,3 @@ void IntakeSubsystem::SetIntakeMotorPower(double power) {
 double IntakeSubsystem::GetDirection() {
   return m_intakeSparkMax.Get();
 }
-#endif //testboard
